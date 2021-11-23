@@ -1,0 +1,9 @@
+{
+    "autoload": {
+        "psr-4": {"ProyectoWeb\\": "src"}
+    },
+    "require": {
+        "slim/slim": "^3.11",
+        "slim/php-view": "^2.2"
+    }
+}

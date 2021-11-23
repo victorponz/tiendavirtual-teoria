@@ -1,0 +1,834 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>admin</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; vertical-align: initial; }
+a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root { --side-bar-bg-color: #fafafa; --control-text-color: #777; }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: normal; src: local("Open Sans Regular"), url("./github/400.woff") format("woff"); }
+@font-face { font-family: "Open Sans"; font-style: italic; font-weight: normal; src: local("Open Sans Italic"), url("./github/400i.woff") format("woff"); }
+@font-face { font-family: "Open Sans"; font-style: normal; font-weight: bold; src: local("Open Sans Bold"), url("./github/700.woff") format("woff"); }
+@font-face { font-family: "Open Sans"; font-style: italic; font-weight: bold; src: local("Open Sans Bold Italic"), url("./github/700i.woff") format("woff"); }
+html { font-size: 16px; }
+body { font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); line-height: 1.6; }
+#write { max-width: 860px; margin: 0px auto; padding: 30px 30px 100px; }
+#write > ul:first-child, #write > ol:first-child { margin-top: 30px; }
+a { color: rgb(65, 131, 196); }
+h1, h2, h3, h4, h5, h6 { position: relative; margin-top: 1rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.4; cursor: text; }
+h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor { text-decoration: none; }
+h1 tt, h1 code { font-size: inherit; }
+h2 tt, h2 code { font-size: inherit; }
+h3 tt, h3 code { font-size: inherit; }
+h4 tt, h4 code { font-size: inherit; }
+h5 tt, h5 code { font-size: inherit; }
+h6 tt, h6 code { font-size: inherit; }
+h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom: 1px solid rgb(238, 238, 238); }
+h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom: 1px solid rgb(238, 238, 238); }
+h3 { font-size: 1.5em; line-height: 1.43; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1em; }
+h6 { font-size: 1em; color: rgb(119, 119, 119); }
+p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
+li > ol, li > ul { margin: 0px; }
+hr { height: 2px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border: 0px none; overflow: hidden; box-sizing: content-box; }
+li p.first { display: inline-block; }
+ul, ol { padding-left: 30px; }
+ul:first-child, ol:first-child { margin-top: 0px; }
+ul:last-child, ol:last-child { margin-bottom: 0px; }
+blockquote { border-left: 4px solid rgb(223, 226, 229); padding: 0px 15px; color: rgb(119, 119, 119); }
+blockquote blockquote { padding-right: 0px; }
+table { padding: 0px; word-break: initial; }
+table tr { border-top: 1px solid rgb(223, 226, 229); margin: 0px; padding: 0px; }
+table tr:nth-child(2n), thead { background-color: rgb(248, 248, 248); }
+table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: solid; border-right-style: solid; border-left-style: solid; border-top-color: rgb(223, 226, 229); border-right-color: rgb(223, 226, 229); border-left-color: rgb(223, 226, 229); border-image: initial; border-bottom-style: initial; border-bottom-color: initial; text-align: left; margin: 0px; padding: 6px 13px; }
+table tr td { border: 1px solid rgb(223, 226, 229); text-align: left; margin: 0px; padding: 6px 13px; }
+table tr th:first-child, table tr td:first-child { margin-top: 0px; }
+table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
+.CodeMirror-lines { padding-left: 4px; }
+.code-tooltip { box-shadow: rgba(0, 28, 36, 0.3) 0px 1px 1px 0px; border-top: 1px solid rgb(238, 242, 242); }
+.md-fences, code, tt { border: 1px solid rgb(231, 234, 237); background-color: rgb(248, 248, 248); border-radius: 3px; padding: 2px 4px 0px; font-size: 0.9em; }
+code { background-color: rgb(243, 244, 244); padding: 0px 2px; }
+.md-fences { margin-bottom: 15px; margin-top: 15px; padding: 8px 1em 6px; }
+.md-task-list-item > input { margin-left: -1.3em; }
+@media print {
+  html { font-size: 13px; }
+  table, pre { break-inside: avoid; }
+  pre { word-wrap: break-word; }
+}
+.md-fences { background-color: rgb(248, 248, 248); }
+#write pre.md-meta-block { padding: 1rem; font-size: 85%; line-height: 1.45; background-color: rgb(247, 247, 247); border: 0px; border-radius: 3px; color: rgb(119, 119, 119); margin-top: 0px !important; }
+.mathjax-block > .code-tooltip { bottom: 0.375rem; }
+.md-mathjax-midline { background: rgb(250, 250, 250); }
+#write > h3.md-focus::before { left: -1.5625rem; top: 0.375rem; }
+#write > h4.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h5.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+#write > h6.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
+.md-image > .md-meta { border-radius: 3px; padding: 2px 0px 0px 4px; font-size: 0.9em; color: inherit; }
+.md-tag { color: rgb(167, 167, 167); opacity: 1; }
+.md-toc { margin-top: 20px; padding-bottom: 20px; }
+.sidebar-tabs { border-bottom: none; }
+#typora-quick-open { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); }
+#typora-quick-open-item { background-color: rgb(250, 250, 250); border-color: rgb(254, 254, 254) rgb(229, 229, 229) rgb(229, 229, 229) rgb(238, 238, 238); border-style: solid; border-width: 1px; }
+.on-focus-mode blockquote { border-left-color: rgba(85, 85, 85, 0.12); }
+header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Arial, sans-serif; }
+.file-node-content:hover .file-node-icon, .file-node-content:hover .file-node-open-state { visibility: visible; }
+.mac-seamless-mode #typora-sidebar { background-color: var(--side-bar-bg-color); }
+.md-lang { color: rgb(180, 101, 77); }
+.html-for-mac .context-menu { --item-hover-bg-color: #E6F0FE; }
+#md-notification .btn { border: 0px; }
+.dropdown-menu .divider { border-color: rgb(229, 229, 229); }
+
+
+.cm-s-inner { background-color: rgb(38, 50, 56); color: rgb(233, 237, 237); }
+.cm-s-inner .CodeMirror-gutters { background: rgb(38, 50, 56); color: rgb(83, 127, 126); border: none; }
+.cm-s-inner .CodeMirror-guttermarker, .cm-s-inner .CodeMirror-guttermarker-subtle, .cm-s-inner .CodeMirror-linenumber { color: rgb(83, 127, 126); }
+.cm-s-inner .CodeMirror-cursor { border-left: 1px solid rgb(248, 248, 240); }
+.cm-s-inner div.CodeMirror-selected { background: rgba(255, 255, 255, 0.15); }
+.cm-s-inner.CodeMirror-focused div.CodeMirror-selected { background: rgba(255, 255, 255, 0.1); }
+.cm-s-inner .CodeMirror-line::selection, .cm-s-inner .CodeMirror-line > span::selection, .cm-s-inner .CodeMirror-line > span > span::selection { background: rgba(255, 255, 255, 0.1); }
+.cm-s-inner .CodeMirror-activeline-background { background: rgba(0, 0, 0, 0); }
+.cm-s-inner .cm-keyword { color: rgb(199, 146, 234); }
+.cm-s-inner .cm-operator { color: rgb(233, 237, 237); }
+.cm-s-inner .cm-variable-2 { color: rgb(128, 203, 196); }
+.cm-s-inner .cm-variable-3 { color: rgb(130, 177, 255); }
+.cm-s-inner .cm-builtin { color: rgb(222, 203, 107); }
+.cm-s-inner .cm-atom { color: rgb(247, 118, 105); }
+.cm-s-inner .cm-number { color: rgb(247, 118, 105); }
+.cm-s-inner .cm-def { color: rgb(233, 237, 237); }
+.cm-s-inner .cm-string { color: rgb(195, 232, 141); }
+.cm-s-inner .cm-string-2 { color: rgb(128, 203, 196); }
+.cm-s-inner .cm-comment { color: rgb(84, 110, 122); }
+.cm-s-inner .cm-variable { color: rgb(130, 177, 255); }
+.cm-s-inner .cm-tag { color: rgb(128, 203, 196); }
+.cm-s-inner .cm-meta { color: rgb(128, 203, 196); }
+.cm-s-inner .cm-attribute { color: rgb(255, 203, 107); }
+.cm-s-inner .cm-property { color: rgb(128, 203, 174); }
+.cm-s-inner .cm-qualifier { color: rgb(222, 203, 107); }
+.cm-s-inner .cm-variable-3 { color: rgb(222, 203, 107); }
+.cm-s-inner .cm-tag { color: rgb(255, 83, 112); }
+.cm-s-inner .cm-error { color: rgb(255, 255, 255); background-color: rgb(236, 95, 103); }
+.cm-s-inner .CodeMirror-matchingbracket { text-decoration: underline; color: white !important; }
+.md-fences { background-color: rgb(38, 50, 56); color: rgb(233, 237, 237); border: none; }
+.md-fences .code-tooltip { background-color: rgb(38, 50, 56); }
+.md-diagram-panel { font-family: Arial; font-size: 14px; line-height: 16px; }
+
+
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-node'><h1><a name='header-n198' class='md-header-anchor '></a>Categorías</h1><p>Vamos a realizar un mantenimiento de la tabla <code>categorias</code>, que nos permita realizar operaciones <a href='https://es.wikipedia.org/wiki/CRUD'>CRUD</a> (<strong>C</strong>reate, <strong>R</strong>ead, <strong>U</strong>pdate, <strong>D</strong>elete).</p><h2><a name='header-n200' class='md-header-anchor '></a>Create</h2><p>&nbsp;</p><p><img src='assets/1544645047016.png' alt='1544645047016' referrerPolicy='no-referrer' /></p><p>El primer paso es crear la entidad <code>Category</code> y el repositorio <code>CategoryRepository</code>.</p><p>Ahora ya podemos empezar con el controlador. Pero antes de empezar vamos a cambiar el método <code>home</code></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">function</span> <span class="cm-def">home</span>(<span class="cm-variable-2">$request</span>, <span class="cm-variable-2">$response</span>, <span class="cm-variable-2">$args</span>) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable-2">$pageheader</span> <span class="cm-operator">=</span> <span class="cm-string">"Categorías"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-variable-2">$response</span><span class="cm-operator">-&gt;</span><span class="cm-variable">write</span>(<span class="cm-variable-2">$pageheader</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-comment">//return $this-&gt;container-&gt;renderer-&gt;render($response, "categorias.view.php", compact('pageheader'));</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 138px;"></div><div class="CodeMirror-gutters" style="display: none; height: 138px;"></div></div></div></pre><p>Porque vamos a ir haciendo cambios en la vista <code>categorias.view.php</code> y no quiero modificar este método hasta que estén hechos el resto de controladores (ya veréis por qué)</p><p>A continuación creamos la nueva ruta en el controlador frontal  <code>public/admin/index.php</code></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-2">$app</span><span class="cm-operator">-&gt;</span><span class="cm-variable">map</span>([<span class="cm-string">'GET'</span>, <span class="cm-string">'POST'</span>], <span class="cm-string">'/categorias/new'</span>, <span class="cm-variable">CategoryController</span>::<span class="cm-keyword">class</span> . <span class="cm-string">':add'</span>)</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">-&gt;</span><span class="cm-variable">setName</span>(<span class="cm-string">'categoria-nueva'</span>);</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 46px;"></div><div class="CodeMirror-gutters" style="display: none; height: 46px;"></div></div></div></pre><p>Y creamos el método <code>add</code> en <code>CategoryController</code>:</p><script src="https://gist.github.com/victorponz/deb2515be350760457c73db54d045253.js"></script><h3><a name='header-n211' class='md-header-anchor '></a><strong>Novedades</strong></h3><p><strong>Mensajes Flash</strong></p><p>En este método vamos a ver el uso de mensajes Flash en la línea <strong>34</strong> (esos que una vez se leen se auto-destruyen)</p><p>Para usar mensajes Flash hemos de instalar este componente:</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="bash"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="bash"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">composer require slim/flash</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><p>Y ahora configurarlo en el controlador frontal:</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">//...</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">use</span> <span class="cm-variable">\Slim\Flash\Messages</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">//...</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-2">$container</span>[<span class="cm-string">'flash'</span>] <span class="cm-operator">=</span> <span class="cm-keyword">function</span> () {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-keyword">return</span> <span class="cm-keyword">new</span> <span class="cm-variable">Messages</span>();</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">};</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-2">$templateVariables</span> <span class="cm-operator">=</span> [</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"basePath"</span> <span class="cm-operator">=&gt;</span> &nbsp;<span class="cm-variable-2">$container</span><span class="cm-operator">-&gt;</span><span class="cm-variable">request</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getUri</span>()<span class="cm-operator">-&gt;</span><span class="cm-variable">getBasePath</span>(),</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-string">"formInfo"</span> <span class="cm-operator">=&gt;</span> <span class="cm-variable-2">$container</span><span class="cm-operator">-&gt;</span><span class="cm-variable">flash</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getMessage</span>(<span class="cm-string">'formInfo'</span>)[<span class="cm-number">0</span>]</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">];</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">//..</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 345px;"></div><div class="CodeMirror-gutters" style="display: none; height: 345px;"></div></div></div></pre><p>Fijaos en <code>$container-&gt;flash-&gt;getMessage(&#39;formInfo&#39;)[0]</code>: tiene como clave la que hemos creado en la línea <strong>34</strong> del script anterior.</p><p>Este cambio supone también que modifiquemos <code>/app/views/admin/partials/show-messages.part.php</code></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-keyword">empty</span>(<span class="cm-variable-2">$formInfo</span>)) : <span class="cm-operator">?&gt;</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">div</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"alert alert-info alert-dismissible"</span> <span class="cm-variable">role</span><span class="cm-operator">=</span><span class="cm-string">"alert"</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">button</span> <span class="cm-variable">type</span><span class="cm-operator">=</span><span class="cm-string">"button"</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"close"</span> <span class="cm-variable">data</span><span class="cm-operator">-</span><span class="cm-variable">dismiss</span><span class="cm-operator">=</span><span class="cm-string">"alert"</span> <span class="cm-variable">aria</span><span class="cm-operator">-</span><span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-string">"Close"</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">span</span> <span class="cm-variable">aria</span><span class="cm-operator">-</span><span class="cm-variable">hidden</span><span class="cm-operator">=</span><span class="cm-string">"true"</span><span class="cm-operator">&gt;</span><span class="cm-variable">x</span><span class="cm-operator">&lt;/</span><span class="cm-variable">span</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-variable">button</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">div</span><span class="cm-operator">&gt;&lt;?=</span><span class="cm-variable-2">$formInfo</span>;<span class="cm-operator">?&gt;&lt;/</span><span class="cm-variable">div</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;/</span><span class="cm-variable">div</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">endif</span>;<span class="cm-operator">?&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">if</span>(<span class="cm-string">"POST"</span> <span class="cm-operator">===</span> <span class="cm-variable-2">$_SERVER</span>[<span class="cm-string">"REQUEST_METHOD"</span>] <span class="cm-operator">&amp;&amp;</span> <span class="cm-variable-2">$form</span><span class="cm-operator">-&gt;</span><span class="cm-variable">hasError</span>()) :<span class="cm-operator">?&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">div</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"alert alert-danger alert-dismissible"</span> <span class="cm-variable">role</span><span class="cm-operator">=</span><span class="cm-string">"alert"</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">button</span> <span class="cm-variable">type</span><span class="cm-operator">=</span><span class="cm-string">"button"</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"close"</span> <span class="cm-variable">data</span><span class="cm-operator">-</span><span class="cm-variable">dismiss</span><span class="cm-operator">=</span><span class="cm-string">"alert"</span> <span class="cm-variable">aria</span><span class="cm-operator">-</span><span class="cm-variable">label</span><span class="cm-operator">=</span><span class="cm-string">"Close"</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">span</span> <span class="cm-variable">aria</span><span class="cm-operator">-</span><span class="cm-variable">hidden</span><span class="cm-operator">=</span><span class="cm-string">"true"</span><span class="cm-operator">&gt;</span><span class="cm-variable">x</span><span class="cm-operator">&lt;/</span><span class="cm-variable">span</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-variable">button</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">ul</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">foreach</span>(<span class="cm-variable-2">$form</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getErrors</span>() <span class="cm-keyword">as</span> <span class="cm-variable-2">$error</span>) : <span class="cm-operator">?&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">li</span><span class="cm-operator">&gt;&lt;?=</span><span class="cm-variable-2">$error</span>;<span class="cm-operator">?&gt;&lt;/</span><span class="cm-variable">li</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">endforeach</span>;<span class="cm-operator">?&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-variable">ul</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-variable">div</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">endif</span>;<span class="cm-operator">?&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 460px;"></div><div class="CodeMirror-gutters" style="display: none; height: 460px;"></div></div></div></pre><p>Modificar la vista <code>categorias.view.php</code> para incluir el formulario: </p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">include</span> <span class="cm-atom">__DIR__</span> . <span class="cm-string">"/partials/inicio-doc.part.php"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">?&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-variable">div</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"row"</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-variable">div</span> <span class="cm-keyword">class</span><span class="cm-operator">=</span><span class="cm-string">"col-lg-6"</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;?</span><span class="cm-variable">php</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-keyword">include</span> <span class="cm-atom">__DIR__</span> . <span class="cm-string">"/partials/show-messages.part.php"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">?&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;?=</span><span class="cm-variable-2">$form</span><span class="cm-operator">-&gt;</span><span class="cm-variable">render</span>();<span class="cm-operator">?&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-variable">div</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;/</span><span class="cm-variable">div</span><span class="cm-operator">&gt;</span> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-keyword">include</span> <span class="cm-atom">__DIR__</span> . <span class="cm-string">"/partials/fin-doc.part.php"</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">?&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 322px;"></div><div class="CodeMirror-gutters" style="display: none; height: 322px;"></div></div></div></pre><p><strong>Redirecciones</strong></p><p>En la línea <strong>35</strong>, hacemos una redirección: de momento es a la misma ruta, pero cuando acabemos todos los controladores, redirigirá a <code>/admin/edit</code>.</p><h2><a name='header-n226' class='md-header-anchor '></a>Update</h2><blockquote><p><strong>IMPORTANTE</strong>:
+Modificad el constructor de cada Entidad. Debe quedar como en el siguiente ejemplo:</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">function</span> <span class="cm-def">__construct</span>(<span class="cm-variable">int</span> <span class="cm-variable-2">$id</span> <span class="cm-operator">=</span> <span class="cm-atom">null</span>, <span class="cm-variable">string</span> <span class="cm-variable-2">$nombre</span> <span class="cm-operator">=</span> <span class="cm-string">''</span>, <span class="cm-variable">string</span> <span class="cm-variable-2">$icon</span> <span class="cm-operator">=</span> <span class="cm-string">''</span>){</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-variable-2">$this</span><span class="cm-operator">-&gt;</span><span class="cm-variable">id</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$id</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-variable-2">$this</span><span class="cm-operator">-&gt;</span><span class="cm-variable">nombre</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$nombre</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-variable-2">$this</span><span class="cm-operator">-&gt;</span><span class="cm-variable">icon</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$icon</span>;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 138px;"></div><div class="CodeMirror-gutters" style="display: none; height: 138px;"></div></div></div></pre><p>Es decir, como primer parámetro se pasa el valor del id.</p><p>Por tanto, modificad la línea <strong>31</strong> del método add:</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-2">$categoria</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Category</span>(<span class="cm-atom">null</span>, <span class="cm-variable-2">$nombre</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getValue</span>(), <span class="cm-variable-2">$icon</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getValue</span>());</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre></blockquote><p>El formulario para editar una categoría, va a ser muy parecido al de crear una nueva. La única diferencia es que mostrará el ID y los campos estarán informados.</p><p>Para no tener que hacer el formulario dos veces, vamos a crear una función que nos devuelva el mismo.</p><blockquote><p><strong>DRY Principle</strong>: <strong>D</strong>on&#39;t <strong>R</strong>epeat <strong>Y</strong>ourself</p></blockquote><p>Pero antes de empezar, hemos de modificar <code>ProyectoWeb\utils\Forms\CompoundElement</code> para añadir un método que nos devuelva todos sus descendientes:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n238" mdtype="fences" style="break-inside: unset;">/**
+ * Devuelve todos los descendientes del componente
+ *
+ * @return array
+ */
+public function getDescendants(): array{
+    $descendants = $this-&gt;children;
+    foreach ($this-&gt;getChildren() as $child) {
+        if (is_subclass_of($child, "ProyectoWeb\utils\Forms\CompoundElement")) {
+            $descendants = array_merge($descendants, $child-&gt;getDescendants());
+        }
+    } 
+    return $descendants;
+}
+</pre><p>Y también, modificamos <code>ProyectoWeb\utils\Forms\FormElement</code> para añadir un método que nos devuelva todos los campos del formulario:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n240" mdtype="fences" style="break-inside: unset;">/**
+ * Devuelve todos los elementos del formulario
+ *
+ * @return array
+ */
+public function getFormElements() : array {
+    $descendants = $this-&gt;getDescendants();
+    $dataDescendants = [];
+    foreach ($descendants as $descendant) {
+        if (is_subclass_of($descendant, "ProyectoWeb\utils\Forms\DataElement")) {
+            if (!empty($descendant-&gt;getName())) {
+                $dataDescendants[$descendant-&gt;getName()] = $descendant;
+            }
+        }
+    } 
+    return $dataDescendants;
+}
+</pre><p>Y ahora podemos modificar la clase <code>CategoryController</code>, añadiendo un método que nos genere el formulario:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n242" mdtype="fences" style="break-inside: unset;">/**
+ * Genera el formulario para el mantenimiento de las categorías
+ *
+ * @return FormElement
+ */
+private function getForm(): FormElement {
+    $nombre = new InputElement('text');
+    $nombre
+    -&gt;setName('nombre')
+    -&gt;setId('nombre')
+    -&gt;setValidator(new NotEmptyValidator('El nombre es obligatorio', true));
+    $nombreWrapper = new MyFormControl($nombre, 'Nombre', 'col-xs-12');
+
+    $icon = new InputElement('text');
+    $icon
+    -&gt;setName('icon')
+    -&gt;setId('icon')
+    -&gt;setValidator(new NotEmptyValidator('El icono es obligatorio', true));
+    $iconWrapper = new MyFormControl($icon, 'Icono', 'col-xs-12');
+    
+    $b = new ButtonElement('Guardar');
+    $b-&gt;setCssClass('pull-right btn btn-lg sr-button');
+
+    $form = new FormElement($this-&gt;container-&gt;router-&gt;pathFor('categoria-nueva'));
+    $form
+    -&gt;setCssClass('form-horizontal')
+    -&gt;appendChild($nombreWrapper)
+    -&gt;appendChild($iconWrapper)
+    -&gt;appendChild($b);
+
+    return $form;
+}
+</pre><p>Y ahora modificamos <code>add()</code> para que llame a este método:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n244" mdtype="fences" style="break-inside: unset;">public function add($request, $response, $args) {
+    $pageheader = "Categorías: nueva";
+   
+    $form = $this-&gt;getForm(); 
+    $formElements = $form-&gt;getFormElements();
+
+    $repositorio = new CategoryRepository();
+    if ("POST" === $_SERVER["REQUEST_METHOD"]) {
+        $form-&gt;validate();
+        if (!$form-&gt;hasError()) {
+            try {
+                $categoria = new Category(null, $formElements['nombre']-&gt;getValue(), $formElements['icon']-&gt;getValue());
+               //...
+               //Código anterior
+            }
+            catch(Exception $err) {
+                $form-&gt;addError($err-&gt;getMessage());
+            }
+        }
+    }    
+
+    return $this-&gt;container-&gt;renderer-&gt;render($response, "categorias.view.php", compact('pageheader', 'form'));
+}
+
+</pre><p>Fijaos en:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n246" mdtype="fences">$formElements = $form-&gt;getFormElements();
+</pre><p> Y en:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n248" mdtype="fences"> $categoria = new Category(
+     null,
+     $formElements['nombre']-&gt;getValue(), 
+     $formElements['icon']-&gt;getValue());
+</pre><p>Ahora ya podemos hacer el controlador para editar una categoría existente.</p><h3><a name='header-n250' class='md-header-anchor '></a>Crear la ruta</h3><p>El primer paso es crear la ruta:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n252" mdtype="fences">$app-&gt;map(['GET', 'POST'], 
+          '/categorias/edit/{id:[0-9]+}', 
+          CategoryController::class . ':edit')-&gt;setName('edit-category');
+</pre><p>En este caso estamos creando un parámetro (parecido a un átomo de Apache) <code>{id:[0-9]+}</code>. El nombre de este parámetro es <code>id</code>y tiene asociado el regex <code>[0-9]+</code>.</p><h3><a name='header-n254' class='md-header-anchor '></a>Controlador</h3><p>Vamos a crear el controlador para esta nueva ruta:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n256" mdtype="fences">public function edit($request, $response, $args) {
+    $id = $args['id'];
+    $pageheader = "Categorías: editar $id";
+    return $response-&gt;write($pageheader);
+}
+</pre><p>También podemos usar la función <code>extract()</code> que produce el mismo resultado. </p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n258" mdtype="fences">public function edit($request, $response, $args) {
+    extract($args);
+    $pageheader = "Categorías: editar $id";
+    return $response-&gt;write($pageheader);
+}
+</pre><p><img src='assets/1544720065587.png' alt='1544720065587' referrerPolicy='no-referrer' /></p><h3><a name='header-n260' class='md-header-anchor '></a>Formulario</h3><p>Ahora ya podemos empezar con la lógica del formulario.</p><p>El primer paso será comprobar que la categoría pasada como parámetro existe:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n263" mdtype="fences">$repositorio = new CategoryRepository();
+try {
+    $categoria = $repositorio-&gt;findById($id);
+}catch(NotFoundException $nfe) {
+    return $response-&gt;write("Categoría no encontrada");
+}
+</pre><p>Si probamos con una categoría inexistente, este será el resultado:</p><p><img src='assets/1544720176689.png' alt='1544720176689' referrerPolicy='no-referrer' /></p><p>En otro caso, mostramos el formulario usando el método <code>getForm()</code>. Pero hay que modificarlo, porque no muestra el campo ID, ni los datos de la categoría. Por tanto:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n267" mdtype="fences" style="break-inside: unset;">private function getForm(Category $categoria = null): FormElement {
+   
+    $nombre = new InputElement('text');
+    $nombre
+    -&gt;setName('nombre')
+    -&gt;setId('nombre')
+    -&gt;setValidator(new NotEmptyValidator('El nombre es obligatorio', true));
+    $nombreWrapper = new MyFormControl($nombre, 'Nombre', 'col-xs-12');
+
+    $icon = new InputElement('text');
+    $icon
+    -&gt;setName('icon')
+    -&gt;setId('icon')
+    -&gt;setValidator(new NotEmptyValidator('El icono es obligatorio', true));
+    $iconWrapper = new MyFormControl($icon, 'Icono', 'col-xs-12');
+
+    $b = new ButtonElement('Guardar');
+    $b-&gt;setCssClass('pull-right btn btn-lg');
+
+    if (!is_null($categoria)) {
+        $id = new InputElement('text');
+        $id
+          -&gt;setName('id')
+          -&gt;setId('id');
+        $idWrapper = new MyFormControl($id, 'ID', 'col-xs-12');
+
+        $id-&gt;setDefaultValue($categoria-&gt;getId());
+        $nombre-&gt;setDefaultValue($categoria-&gt;getNombre());
+        $icon-&gt;setDefaultValue($categoria-&gt;getIcon());
+
+        $form = new FormElement(
+            $this-&gt;container-&gt;router-&gt;pathFor('edit-category', 
+                                              ['id' =&gt; $categoria-&gt;getId()])
+        		);
+        $form-&gt;appendChild($idWrapper);
+    } else {
+        $form = new FormElement($this-&gt;container-&gt;router-&gt;pathFor('new-category'));
+    }
+
+    $form-&gt;setCssClass('form-horizontal');
+    $form
+    -&gt;appendChild($nombreWrapper)
+    -&gt;appendChild($iconWrapper)
+    -&gt;appendChild($b);
+
+    return $form;
+}
+</pre><p>Si le pasamos una Categoría, creamos el campo ID, informamos los campos y la <code>action</code> del formulario es:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n269" mdtype="fences">$this-&gt;container-&gt;router-&gt;pathFor('edit-category', 
+                                  ['id' =&gt; $categoria-&gt;getId()])
+</pre><p>Como la ruta <code>edit-category</code>tiene un parámetro, hemos de pasarlo al método <code>pathFor</code>. Tantas parejas <code>clave =&gt; valor</code> como tenga la ruta.</p><p>Ahora ya podemos unirlo todo:</p><script src="https://gist.github.com/victorponz/d143ace2fcc2b6fe3d2e9c2615ed4ba6.js"></script><p><img src='assets/1544726152878.png' alt='1544726152878' referrerPolicy='no-referrer' /></p><h3><a name='header-n274' class='md-header-anchor '></a>Campo ID no editable</h3><p>Como podéis observar, el campo ID se puede editar por el usuario. Para que no pueda hacerlo, debe tener el atributo <code>readonly</code> </p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n276" mdtype="fences">&lt;input name="id" value="1" id="id" class="form-control" readonly="" type="text"&gt;
+</pre><p>Así que modificamos <code>Element</code> para que pueda tener atributos:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n278" mdtype="fences" style="break-inside: unset;">protected $attributes;
+
+public function __construct()
+{
+    $this-&gt;attributes = [];
+}
+
+//Resto de métodos
+public function setAttribute(string $key, string $value) {
+    $this-&gt;attributes[$key] = $value;
+}
+
+protected function renderAttributes(): string
+{
+    $html = (!empty($this-&gt;id) ? " id='$this-&gt;id' " : '');
+    $html .= (!empty($this-&gt;cssClass) ? " class='$this-&gt;cssClass' " : '');
+    $html .= (!empty($this-&gt;style) ? " style='$this-&gt;style' " : '');
+    foreach($this-&gt;attributes as $key =&gt; $value) {
+        $html .= " $key=\"$value\" ";
+    }
+    return $html;
+}
+</pre><p>Se me olvidó llamar al constructor del padre en <code>DataElemtent</code>, por lo también hay que modificarlo:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n280" mdtype="fences">public function __construct()
+{
+    $this-&gt;donePostValue = false;
+    $this-&gt;errors = [];
+    parent::__construct();
+}
+</pre><p>Por último modificamos el método <code>getForm</code> de <code>CategoryController</code>:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n282" mdtype="fences">if (!is_null($categoria)) {
+    $id = new InputElement('text');
+    $id
+      -&gt;setName('id')
+      -&gt;setId('id')
+      -&gt;setAttribute('readonly', '');
+</pre><blockquote><p><strong>IMPORTANTE</strong>:
+Que sea <code>readonly</code> no significa que el usuario no lo pueda cambiar!
+En un entorno real, debemos tener presente esto y controlar de alguna forma que este valor no haya sido cambiado por el usuario. Por ejemplo, se puede poner un campo oculto con el ID <a href='https://deliciousbrains.com/php-encryption-methods/'>encriptado simétricamente</a>. 
+Además, generalmente se crear <code>tokens</code> para los formularios mediante algún algoritmo de hash para proteger nuestro sitio de ataques de tipo <a href='https://es.wikipedia.org/wiki/Cross-site_request_forgery'>CSRF</a></p></blockquote><p>&nbsp;</p><h2><a name='header-n286' class='md-header-anchor '></a>Cambiar redirect en new</h2><p>Ahora que ya podemos editar una categoría, vamos a hacer que al grabar una nueva nos redirija al modo editar de la misma.</p><p><img src='assets/1545030810666.png' alt='1545030810666' referrerPolicy='no-referrer' /></p><p>Aquí vemos un concepto nuevo: </p><p><strong>¿Cómo sabemos qué ID ha autogenerado para la nueva categoría?</strong>:<span>	</span>usando el método <code>lastInsertId()</code> de la conexión.</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n291" mdtype="fences"> $categoria-&gt;setId(App::get('connection')-&gt;lastInsertId());
+</pre><blockquote><p><strong>Cuidado</strong>:
+No en todos los SGDB se obtiene de esta manera el valor del id autogenerado. Por ejemplo, en Oracle y PostgreSQL se hace de otra forma. Pero en MySql y MariaDB se hace así.</p></blockquote><p>Ahora ya podemos redireccionar correctamente:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n295" mdtype="fences">return $response-&gt;withRedirect(
+    $this-&gt;container-&gt;router-&gt;pathFor('edit-category', 
+                                      ['id' =&gt; $categoria-&gt;getId()]), 303);
+</pre><h2><a name='header-n296' class='md-header-anchor '></a>Delete</h2><p>En la pantalla para Editar una categoría, añadimos un nuevo botón para eliminarla:</p><p>Pero para ello, hay que añadir un nuevo método a <code>QueryBuilder</code>.</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n299" mdtype="fences">public function delete(Entity $entity)
+{
+    try{
+        $sql = "DELETE FROM $this-&gt;table WHERE id = :id";
+        $statement = $this-&gt;connection-&gt;prepare($sql);
+        $statement-&gt;execute(['id' =&gt; $entity-&gt;getId()]);
+    }catch (\PDOException $exception){
+        throw new QueryException("Error al eliminar en la base de datos. " . $exception-&gt;getMessage());
+    }
+}
+</pre><p><img src='assets/1544723169559.png' alt='1544723169559' referrerPolicy='no-referrer' /></p><p>Pero ahora tenemos un formulario con dos botones: ¿Cómo sabemos en qué botón ha hecho clic el usuario?</p><p>Para solucionarlo, añadimos un nuevo método a <code>ButtonElement</code>:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n303" mdtype="fences">/**
+ * Devuelve true si éste ha sido el botón enviado con el formulario
+ *
+ * @return boolean
+ */
+public function isSubmitted(): bool {
+    if (empty($this-&gt;name)) {
+        return false;
+    }
+    return (isset($_POST[$this-&gt;name]));
+}
+</pre><p>Fijaos que aunque el formulario tenga dos botones, al pulsar Eliminar estos son los dados que envía el navegador:</p><p><img src='assets/1544723378979.png' alt='1544723378979' referrerPolicy='no-referrer' /></p><p>De esta forma podemos discriminar la acción elegida por el usuario.</p><p>Modificamos el método <code>getForm()</code> para añadir el botón para Eliminar:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n308" mdtype="fences" style="break-inside: unset;">if (!is_null($categoria)) {
+    $id = new InputElement('text');
+    $id
+      -&gt;setName('id')
+      -&gt;setId('id');
+    $idWrapper = new MyFormControl($id, 'ID', 'col-xs-12');
+
+    $buttonDelete =  new ButtonElement('Eliminar');
+    $buttonDelete
+      -&gt;setId('delete');
+      -&gt;setName('delete');
+    $buttonDelete-&gt;setCssClass('pull-right btn btn-lg');
+
+    $id-&gt;setDefaultValue($categoria-&gt;getId());
+    $nombre-&gt;setDefaultValue($categoria-&gt;getNombre());
+    $icon-&gt;setDefaultValue($categoria-&gt;getIcon());
+
+    $form = new FormElement($this-&gt;container-&gt;router-&gt;pathFor('edit-category', ['id' =&gt; $categoria-&gt;getId()]));
+    $form-&gt;appendChild($idWrapper);
+} else {
+    $form = new FormElement($this-&gt;container-&gt;router-&gt;pathFor('new-category'));
+}
+
+$form-&gt;setCssClass('form-horizontal');
+$form
+-&gt;appendChild($nombreWrapper)
+-&gt;appendChild($iconWrapper)
+-&gt;appendChild($b);
+if (!is_null($categoria)) {
+    $form-&gt;appendChild($buttonDelete);
+}
+</pre><p>Para que funcione hay que asignarle un <code>name</code> al botón:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n310" mdtype="fences">$buttonDelete-&gt;setName('delete');
+</pre><p>Ya sólo nos falta modificar el método <code>edit</code> para poder eliminar la categoría.</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n312" mdtype="fences">if ("POST" === $_SERVER["REQUEST_METHOD"]) {
+    $form-&gt;validate();
+    if ($formElements['delete']-&gt;isSubmitted()) {
+        try {
+            $repositorio-&gt;delete($categoria);
+            return $response-&gt;write('Categoría eliminada correctamente');
+        }catch(QueryException $qe) {
+            //Luego la tratamos
+        }
+    }
+    //resto de código
+</pre><h2><a name='header-n313' class='md-header-anchor '></a>Retoques finales</h2><h3><a name='header-n314' class='md-header-anchor '></a>Lista de categorías</h3><p>Ahora mismo no tenemos una lista de las categorías existentes por lo que nuestra aplicación todavía no es funcional.</p><p>Vamos a añadir un menú con todas las categorías existentes.</p><p>Primero modificamos la vista <code>categorias.view.php</code></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n318" mdtype="fences" style="break-inside: unset;">&lt;?php
+  include __DIR__ . "/partials/inicio-doc.part.php";
+?&gt;
+&lt;div class="row"&gt;
+  &lt;div class="col-lg-2"&gt;
+    &lt;ul&gt;
+      &lt;?php foreach($categorias as $categoria) :?&gt;
+        &lt;li&gt;&lt;a href='&lt;?=$router-&gt;pathFor('edit-category', ['id' =&gt; $categoria-&gt;getId()])?&gt;'&gt;&lt;?=$categoria-&gt;getNombre();?&gt;&lt;/a&gt;&lt;/li&gt;
+      &lt;?php endforeach; ?&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+  &lt;div class="col-lg-6"&gt;
+    &lt;?php
+          include __DIR__ . "/partials/show-messages.part.php";
+      ?&gt;
+      &lt;?=$form-&gt;render();?&gt;
+  &lt;/div&gt;
+&lt;/div&gt;             
+&lt;?php
+  include __DIR__ . "/partials/fin-doc.part.php";
+?&gt;
+</pre><p>Fijaos que usamos las variables <code>$categorias</code>  y <code>$router</code>.</p><p>La variable <code>$categorias</code> la informaremos en los dos métodos <code>add</code> y <code>edit</code>, llamando a </p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n321" mdtype="fences">$categorias = $repositorio-&gt;findAll();
+</pre><p>Y se la pasaremos como un parámetro a la plantilla:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n323" mdtype="fences">return $this-&gt;container-&gt;renderer-&gt;render($response, "categorias.view.php", compact('pageheader', 'form', 'categorias'));
+</pre><p>Sin embargo, el <code>$router</code> vamos a hacerlo global para todas las plantillas de <code>/admin</code>.</p><p>Por tanto, en el controlador frontal:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n326" mdtype="fences">$templateVariables = [
+    "basePath" =&gt;  $container-&gt;request-&gt;getUri()-&gt;getBasePath(),
+    "formInfo" =&gt; $container-&gt;flash-&gt;getMessage('formInfo')[0],
+    "router" =&gt; $container-&gt;router
+];
+</pre><p>Ahora ya podemos tener una lista con las categorías:</p><p><img src='assets/1544725443260.png' alt='1544725443260' referrerPolicy='no-referrer' /></p><h3><a name='header-n329' class='md-header-anchor '></a>Botón Añadir</h3><p>En este momento no tenemos ninguna opción para añadir Categorías.</p><p>Como antes, modificamos la plantilla.</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n332" mdtype="fences">&lt;?php
+  include __DIR__ . "/partials/inicio-doc.part.php";
+?&gt;
+&lt;div class="row"&gt;
+  &lt;a class='btn btn-default' href='&lt;?=$router-&gt;pathFor('new-category');?&gt;'&gt;Añadir&lt;/a&gt;
+&lt;hr&gt;
+//Resto de la plantilla
+</pre><p><img src='assets/1544725852847.png' alt='1544725852847' referrerPolicy='no-referrer' /></p><h3><a name='header-n334' class='md-header-anchor '></a>Página de inicio</h3><p>En estos momentos, cuando el usuario hace clic en Categorías en el menú se muestra la siguiente ventana:</p><p><img src='assets/1544728169417.png' alt='1544728169417' referrerPolicy='no-referrer' /></p><p>Pero haremos lo siguiente:</p><ul><li>Si hay alguna categoría, mostraremos la primera en modo Edición</li><li>Si no hay ninguna, mostraremos el formulario para añadir una nueva</li></ul><p>Para saber si existe alguna, creamos el método <code>findFirst</code> en <code>QueryBuilder</code>:</p><p><img src='assets/1545030912626.png' alt='1545030912626' referrerPolicy='no-referrer' /></p><p>Y ahora ya podemos completar el método <code>home</code> en <code>CategoryController</code></p><p><img src='assets/1545030926470.png' alt='1545030926470' referrerPolicy='no-referrer' /></p><h3><a name='header-n347' class='md-header-anchor '></a>Redirigir al eliminar</h3><p>Ahora al eliminar un elemento, redirigimos a la página <code>/categorias</code></p><p><img src='assets/1545030948679.png' alt='1545030948679' referrerPolicy='no-referrer' /></p><h2><a name='header-n350' class='md-header-anchor '></a>Confirmación al eliminar</h2><p>Siempre que se elimina un elemento, se debe pedir confirmación.</p><p><img src='assets/1544730095182.png' alt='1544730095182' referrerPolicy='no-referrer' /></p><p>Para ello, modificamos la vista <code>fin-doc.part.php</code> para incluir un pequeño javascript.</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n354" mdtype="fences">&lt;script src="&lt;?=$basePath;?&gt;/js/plugins/morris/morris-data.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+    function checkDelete(){
+        //Siempre que una acción no se pueda deshacer hay que pedir confirmación al usuario
+        if (confirm("¿Seguro que desea borrar este elemento?"))
+            return true;
+        else
+            return false;
+    }
+&lt;/script&gt;
+</pre><p>Y ahora, le añadimos un evento <code>onclic</code> al botón.</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n356" mdtype="fences">$buttonDelete
+  -&gt;setId('delete')
+  -&gt;setName('delete')
+  -&gt;setAttribute('onclick', "return checkDelete();");
+</pre><blockquote><p><strong>NOTA</strong>
+En una aplicación real, tal vez usemos una ventana modal y no esta que nos muestra el navegador por defecto. Además el script no debería ser <code>inline</code> sino estar empaquetado en un fichero <code>.js</code></p></blockquote><h1><a name='header-n359' class='md-header-anchor '></a>Productos</h1><h2><a name='header-n360' class='md-header-anchor '></a>FileElement</h2><p>En este caso no encontramos conque los campos <code>File</code> no pueden estar nunca vacíos porque hacemos la comprobación en el propio elemento y no en un validador. Por tanto, hemos de modificar un poco  <code>FileElement::validate</code>, pasando de :</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n362" mdtype="fences">case UPLOAD_ERR_NO_FILE:
+  $this-&gt;errors[] = 'Debes seleccionar un fichero';
+  break;
+</pre><p>a:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n364" mdtype="fences">case UPLOAD_ERR_NO_FILE:
+  break;
+</pre><p>De esta forma conseguimos que se pueda enviar un <code>File</code> vacío. Pero ahora hace falta un nuevo validador, que llamaremos <code>FileNotEmptyValidator</code>:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n366" mdtype="fences" style="break-inside: unset;">&lt;?php
+namespace ProyectoWeb\utils\Validator;
+
+use ProyectoWeb\utils\Validator\Validator;
+
+class FileNotEmptyValidator extends Validator {
+    public function doValidate(): bool{
+        $ok = ($this-&gt;data["error"] === UPLOAD_ERR_OK);
+        if (!$ok) {
+            $this-&gt;errors[] = $this-&gt;message;
+        }
+        return $ok;
+    } 
+}
+</pre><p>Y por último hemos de modificar un poco <code>MimetypeValidator</code>:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n368" mdtype="fences">public function doValidate(): bool{
+    $ok = true;
+    if ($this-&gt;data["error"] === UPLOAD_ERR_OK) {
+        $ok = in_array($this-&gt;data["type"], $this-&gt;mimeTypes);
+    }
+    
+    if (!$ok) {
+        $this-&gt;errors[] =  $this-&gt;message;
+    }
+    
+    return $ok;
+} 
+</pre><p>Y <code>MaxSizeValidator</code>:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n370" mdtype="fences">public function doValidate(): bool{
+    $ok = true;
+    if ($this-&gt;data["error"] === UPLOAD_ERR_OK) {
+        $ok = !(($this-&gt;maxSize &gt; 0) &amp;&amp; ($this-&gt;data['size'] &gt; $this-&gt;maxSize));
+    }
+    if (!$ok) {
+        $this-&gt;errors[] =  $this-&gt;message;
+    }
+    
+    return $ok;
+} 
+</pre><p>Ahora ya podemos crear campos <code>File</code> que sean opcionales.</p><h2><a name='header-n372' class='md-header-anchor '></a>Formulario</h2><p>Para crear el formulario, hemos de hacer que el campo File sea opcional en el caso de que estamos editando un elemento en el caso de la Foto. Y el carrusel siempre va a ser opcional.</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n374" mdtype="fences" style="break-inside: unset;">//getForm()
+$foto = new FileElement();
+$foto
+-&gt;setName('foto')
+-&gt;setId('foto');
+
+if (!is_null($producto)) { 
+    $fv = new MimetypeValidator(['image/jpeg', 'image/jpg', 'image/png'], 'Formato no soportado', true);
+} else {
+    $fv = new FileNotEmptyValidator('La foto no puede estar vacía', true);
+    $fv-&gt;setNextValidator(new MimetypeValidator(['image/jpeg', 'image/jpg', 'image/png'], 'Formato no soportado', true));
+}
+$foto-&gt;setValidator($fv);
+
+$labelFoto = new LabelElement('Foto', $foto);
+$labelFoto-&gt;setStyle('display:block');
+
+$carrusel = new FileElement();
+$carrusel
+  -&gt;setName('carrusel')
+  -&gt;setId('carrusel')
+  -&gt;setValidator(new MimetypeValidator(['image/jpeg', 'image/jpg', 'image/png'], 'Formato no soportado', true));
+
+$labelCarrusel = new LabelElement('Carrusel', $carrusel);
+</pre><p>Ahora falta modificar el método <code>add</code>:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n376" mdtype="fences" style="break-inside: unset;">$foto = $formElements['foto'];
+$foto-&gt;saveUploadedFile(APP::get('rootDir') . Product::RUTA_IMAGENES); 
+// Create a new SimpleImage object
+$simpleImage = new \claviska\SimpleImage();
+$simpleImage
+-&gt;fromFile(APP::get('rootDir') . Product::RUTA_IMAGENES . $foto-&gt;getFileName())  
+-&gt;resize(600)
+-&gt;toFile(APP::get('rootDir') . Product::RUTA_IMAGENES . '600_' . $foto-&gt;getFileName())
+-&gt;resize(256)
+-&gt;toFile(APP::get('rootDir') . Product::RUTA_IMAGENES . '256_' . $foto-&gt;getFileName()); 
+
+//El carrusel puede estar vacío
+$carrusel = $formElements['carrusel'];
+if (!empty($carrusel-&gt;getFileName())) {
+    $carrusel-&gt;saveUploadedFile(APP::get('rootDir') . Product::RUTA_IMAGENES_CARRUSEL); 
+    $simpleImage
+    -&gt;fromFile(APP::get('rootDir') . Product::RUTA_IMAGENES . $foto-&gt;getFileName())  
+    -&gt;resize(800, 300)
+    -&gt;toFile(APP::get('rootDir') . Product::RUTA_IMAGENES_CARRUSEL . $foto-&gt;getFileName());
+}
+
+$producto = new Product(null, $formElements['nombre']-&gt;getValue(), 
+                        $formElements['descripcion']-&gt;getValue(), 
+                        $formElements['categoria']-&gt;getValue(),
+                        $formElements['precio']-&gt;getValue(),
+                        $formElements['foto']-&gt;getFileName(),
+                        ($formElements['destacado']-&gt;isChecked() ? 1: 0), 
+                        $formElements['carrusel']-&gt;getFileName());
+
+$repositorio-&gt;save($producto);
+</pre><p>Y el método <code>edit</code>. Es similar a <code>add</code>, pero en el caso de que el campo File esté vacío, guardamos el valor anterior:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n378" mdtype="fences" style="break-inside: unset;">$simpleImage = new \claviska\SimpleImage();
+$foto = $formElements['foto'];
+if (!empty($foto-&gt;getFileName())) {
+    $foto-&gt;saveUploadedFile(APP::get('rootDir') . Product::RUTA_IMAGENES); 
+    $simpleImage
+    -&gt;fromFile(APP::get('rootDir') . Product::RUTA_IMAGENES . $foto-&gt;getFileName())  
+    -&gt;resize(600)
+    -&gt;toFile(APP::get('rootDir') . Product::RUTA_IMAGENES . '600_' . $foto-&gt;getFileName())
+    -&gt;resize(256)
+    -&gt;toFile(APP::get('rootDir') . Product::RUTA_IMAGENES . '256_' . $foto-&gt;getFileName()); 
+}
+
+$carrusel = $formElements['carrusel'];
+if (!empty($carrusel-&gt;getFileName())) {
+    $carrusel-&gt;saveUploadedFile(APP::get('rootDir') . Product::RUTA_IMAGENES_CARRUSEL); 
+    $simpleImage
+    -&gt;fromFile(APP::get('rootDir') . Product::RUTA_IMAGENES_CARRUSEL . $carrusel-&gt;getFileName())  
+    -&gt;resize(800, 300)
+    -&gt;toFile(APP::get('rootDir') . Product::RUTA_IMAGENES_CARRUSEL . $carrusel-&gt;getFileName());
+}
+$producto = new Product($formElements['id']-&gt;getValue(), 
+                        $formElements['nombre']-&gt;getValue(), 
+                        $formElements['descripcion']-&gt;getValue(), 
+                        $formElements['categoria']-&gt;getValue(),
+                        $formElements['precio']-&gt;getValue(), 
+                        !empty($foto-&gt;getFileName()) ? $formElements['foto']-&gt;getFileName() : $producto-&gt;getFoto(),
+                        ($formElements['destacado']-&gt;isChecked()? 1: 0),
+                        !empty($carrusel-&gt;getFileName()) ? $formElements['carrusel']-&gt;getFileName() : $producto-&gt;getCarrusel());
+                       
+$repositorio-&gt;update($producto);
+
+</pre><h2><a name='header-n379' class='md-header-anchor '></a>Imágenes</h2><p>Además, nos interesa que cuando estamos editando un producto aparezcan las imágenes que tiene el mismo. Para ello, hace falta crear un nuevo elemento para el formulario: <code>ImgElement</code></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n381" mdtype="fences" style="break-inside: unset;">&lt;?php
+namespace ProyectoWeb\utils\Forms;
+
+use ProyectoWeb\utils\Forms\Element;
+
+class ImgElement extends Element
+{
+    /**
+     * @var string
+     */
+    private $src;
+
+    /**
+     * @var string
+     */
+    private $alt;
+
+    /**
+     * @var string
+     */
+    private $title;
+
+
+    public function __construct(string $src, string $alt = '', string $title = '')
+    {
+        $this-&gt;src = $src;
+        $this-&gt;alt = $alt;
+        $this-&gt;title = $title;
+
+        parent::__construct();
+    }
+    public function render(): string
+    {
+        $html = 
+            "&lt;img src='" . $this-&gt;src . "' alt='" .  $this-&gt;alt . "' title='" .  $this-&gt;title . "' " . 
+            $this-&gt;renderAttributes() .
+            "&gt;";
+        return $html;
+    }
+}
+</pre><p>Y ahora sólo nos hace falta añadir las imágenes al formulario:</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="php" contenteditable="false" cid="n383" mdtype="fences"> if (!is_null($producto)) {
+	//resto de código       
+    $imgFoto = new ImgElement(Product::RUTA_IMAGENES . '256_'. $producto-&gt;getFoto());
+    $imgFoto-&gt;setStyle('display:block');
+
+    if (!empty($producto-&gt;getCarrusel())) {
+        $imgCarrusel = new ImgElement(Product::RUTA_IMAGENES_CARRUSEL . $producto-&gt;getCarrusel());
+        $imgCarrusel-&gt;setStyle('width:256px; display:block');
+    }
+    //...
+</pre><p><img src='assets/1546622317648.png' alt='1546622317648' referrerPolicy='no-referrer' /></p><h2><a name='header-n385' class='md-header-anchor '></a>Destacado</h2><p>Por último falta tratar el campo <code>destacado</code>. Por un lado, hemos de guardar <code>1</code> cuando el campo es <code>true</code> y <code>0</code> cuando es <code>false</code>. Por otro lado, cuando el valor es <code>1</code> lo hemos de mostrar <strong>chequeado</strong> y cuando es <code>0</code> no.</p><p>Por tanto, en <code>getForm()</code>:</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">if</span> (<span class="cm-operator">!</span><span class="cm-builtin">is_null</span>(<span class="cm-variable-2">$producto</span>)) {</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable-2">$destacado</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">CheckboxElement</span>(<span class="cm-string">"Destacado"</span>, <span class="cm-variable-2">$producto</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getDestacado</span>() <span class="cm-operator">==</span> <span class="cm-number">1</span> <span class="cm-operator">?</span> <span class="cm-atom">true</span>: <span class="cm-atom">false</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable-2">$destacado</span> &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-operator">-&gt;</span><span class="cm-variable">setName</span>(<span class="cm-string">"destacado"</span>) &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-operator">-&gt;</span><span class="cm-variable">setDefaultValue</span>(<span class="cm-string">"1"</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-comment">//resto de código</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">} <span class="cm-keyword">else</span> {</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable-2">$destacado</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">CheckboxElement</span>(<span class="cm-string">"Destacado"</span>, <span class="cm-atom">false</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable-2">$destacado</span> &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-operator">-&gt;</span><span class="cm-variable">setName</span>(<span class="cm-string">"destacado"</span>) &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-operator">-&gt;</span><span class="cm-variable">setDefaultValue</span>(<span class="cm-string">"1"</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-variable-2">$form</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">FormElement</span>(<span class="cm-variable-2">$this</span><span class="cm-operator">-&gt;</span><span class="cm-variable">container</span><span class="cm-operator">-&gt;</span><span class="cm-variable">router</span><span class="cm-operator">-&gt;</span><span class="cm-variable">pathFor</span>(<span class="cm-string">'new-product'</span>), <span class="cm-string">'multipart/form-data'</span>);</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">} &nbsp; &nbsp;</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 345px;"></div><div class="CodeMirror-gutters" style="display: none; height: 345px;"></div></div></div></pre><p>Y al guardar, tanto en <code>add</code> como en <code>edit</code>:</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> (<span class="cm-variable-2">$formElements</span>[<span class="cm-string">'destacado'</span>]<span class="cm-operator">-&gt;</span><span class="cm-variable">isChecked</span>() <span class="cm-operator">?</span> <span class="cm-number">1</span>: <span class="cm-number">0</span>),</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div><div class="CodeMirror-gutters" style="display: none; height: 23px;"></div></div></div></pre><hr /><p><strong>Credits.</strong></p><p>Víctor Ponz <a href='mailto:victorponz@gmail.com' target='_blank' class='url'>victorponz@gmail.com</a></p><p>Este material está licenciado bajo una licencia <a href='https://creativecommons.org/licenses/by-nc-sa/3.0/'>Creative Commons, Attribution-NonCommercial-ShareAlike</a></p><p><img src='https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png' alt='' referrerPolicy='no-referrer' /></p></div>
+</body>
+</html>
