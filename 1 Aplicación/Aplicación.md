@@ -2,7 +2,7 @@
 typora-copy-images-to: assets
 ---
 
-## Carrusel
+## 1.1 Carrusel
 
 Vamos a crear el carrusel. Para ello es necesario:
 
@@ -79,7 +79,7 @@ Y continuamos con las imágenes:
 
 ![1546629148955](assets/1546629148955.png)
 
-## Destacados
+## 1.2 Destacados
 
 Vamos a crear una sección en la portada con los productos destacados:
 
@@ -143,7 +143,7 @@ Y este es el resultado:
 
 ![1546628418271](assets/1546628418271.png)
 
-## Novedades
+## 1.3 Novedades
 
 ![1546629030120](assets/1546629030120.png)
 
@@ -179,7 +179,7 @@ Y modificar `index.view.php`
 
 
 
-## Categorías
+## 1.4 Categorías
 
 Por último, nos queda completar la lista de categorías. Sólo nos hace falta:
 
