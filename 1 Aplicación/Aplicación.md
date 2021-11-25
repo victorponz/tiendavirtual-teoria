@@ -24,33 +24,40 @@ El código de `index.view.php` relativo al carrusel lo movemos a un partial `/pa
 
 ```html
 <div class="row carousel-holder">
-    <div class="col-md-12">
-        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
-                <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="item active">
-                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                </div>
-                <div class="item">
-                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                </div>
-                <div class="item">
-                    <img class="slide-image" src="http://placehold.it/800x300" alt="">
-                </div>
+   <div class="col-md-12">
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+         <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+            <li data-target="#carousel-example-generic" data-slide-to="3" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="4" class=""></li>
+         </ol>
+         <div class="carousel-inner">
+            <div class="item">
+               <img class="slide-image" src="/images/carrusel/cuando-plantar-margaritas-en-el-jardin.jpg" alt="Margarita" title="Margarita">
             </div>
-            <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
-                <span class="glyphicon glyphicon-chevron-left"></span>
-            </a>
-            <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
-                <span class="glyphicon glyphicon-chevron-right"></span>
-            </a>
-        </div>
-    </div>
-
+            <div class="item">
+               <img class="slide-image" src="/images/carrusel/caracteristicas-cuidados-del-tulipan-1280x720x80xX.jpg" alt="Tulipán" title="Tulipán">
+            </div>
+            <div class="item">
+               <img class="slide-image" src="/images/carrusel/20077.jpg" alt="Flor de pascua" title="Flor de pascua">
+            </div>
+            <div class="item active">
+               <img class="slide-image" src="/images/carrusel/Coltivazione-Lilium-800x445.jpg" alt="Lilium" title="Lilium">
+            </div>
+            <div class="item">
+               <img class="slide-image" src="/images/carrusel/Grow-Roses-Header-OG.jpg" alt="Rosa" title="Rosa">
+            </div>
+         </div>
+         <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+         <span class="glyphicon glyphicon-chevron-left"></span>
+         </a>
+         <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+         <span class="glyphicon glyphicon-chevron-right"></span>
+         </a>
+      </div>
+   </div>
 </div>
 ```
 
@@ -105,15 +112,15 @@ El partial `thumbnail-producto.part.php` de la miniatura es el siguiente:
 ```html
 <div class="col-sm-4 col-lg-4 col-md-4">
     <div class="thumbnail" style="position:relative">
-      <a href="#">
-          <img src="/images/php3Erxgt.jpg" alt="Margaritas" title="Margaritas">
-      </a>
-      <div class="caption">
-        <h4><a href="#">Margaritas</a></h4>
-        <p>Bellis perennis, comúnmente llamada chiribita, margarita común, pascueta o vellorita es una planta herbácea muy utilizada a efectos decorativos mezclada con ...</p>
-      </div>
-      <h4 class="pull-right"><span class="text text-danger">15,00 €</span></h4>
-      <a href="#" class="btn btn-danger">Comprar</a>
+        <a href="#">
+            <img src="/images/img_que_significan_las_margaritas_26142_orig.jpg" alt="Margarita" title="Margarita">
+        </a>
+        <div class="caption">
+            <h4><a href="#">Margarita</a></h4>
+            <p>Bellis perennis, comúnmente llamada margarita, es una planta herbácea de la familia de las asteráceas muy utilizada a efectos decorativos mezclada con el césped, por sus colores y su resistencia a la siega.</p>
+        </div>
+        <h4 class="pull-right"><span class="text text-danger">100,00 €</span></h4>
+        <a href="#" class="btn btn-danger">Comprar</a>
     </div>
 </div>
 ```
