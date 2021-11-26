@@ -12,7 +12,7 @@ Como siempre, nos hace falta:
 * crear la vista 
 * crear el partial.
 
-## Ruta
+# 3.1 Ruta
 
 ![1547023385886](assets/1547023385886.png)
 
@@ -49,7 +49,18 @@ Como siempre, nos hace falta:
 </div>
 ```
 
-# Paginador
+## Crear el enlace a las categorías
+
+Ahora nos hace falta modificar el enlace asociado en el menú de categorías. Para ello volvemos a hacer uso del enrutador en `category.part.php`
+
+```php
+ href="<?=$router->pathFor('categoria', 
+            ['nombre' =>  ProyectoWeb\app\utils\Utils::encodeURI($categoria->getNombre()), 'id' => $categoria->getId()])?>"
+```
+
+
+
+# 3.2 Paginador
 
 Vamos a incluir un paginador para los productos:
 
@@ -133,7 +144,7 @@ Por último, ya sólo nos queda generar `$urlPattern`. En el ejemplo la especifi
 $urlPattern = '/foo/page/(:num)';
 ```
 
-Porque el paginador reemplaza `(:num)`por el número de página real. En nuestro caso va a ser:
+Porque el paginador reemplaza `(:num)`por el número de página real. En nuestro caso va a ser (lo usaremos más adelante)
 
 ```php
 $this->container->router->pathFor('categoria', 
@@ -194,7 +205,7 @@ Modificamos el partial para que el paginador sea de la siguiente forma:
 
 ![1546975749734](assets/1546975749734.png)
 
-Simplemente he usado uno de los ejemplos que ya vienen preinstalados, `pager.phtml`,  y lo he modificado un poco:
+Simplemente he usado uno de los ejemplos que ya vienen preinstalados, `pager.phtml`,  y lo he modificado un poco. Así que `pager.part.php` queda como sigue:
 
 ```php
 <?php if ($paginator->getNumPages() > 1): ?>
