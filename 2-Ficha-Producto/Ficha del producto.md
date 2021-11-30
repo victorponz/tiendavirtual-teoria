@@ -2,7 +2,7 @@
 typora-copy-images-to: assets
 ---
 
-## Ficha del producto
+## 2.1 Ficha del producto
 
 Vamos a implementar la ficha del producto:
 
@@ -40,6 +40,12 @@ $app->get('/producto/{nombre}/{id:[0-9]+}', ProductController::class . ':ficha')
 Como hemos comentado, de momento el controlador es básico. Sólo va a mostrar los datos pasados en la ruta:
 
 ![1546857140673](assets/1546857140673.png)
+
+La función `extract` hace lo contrario a `compact`; es decir genera variables a partir de las claves de un array asociativo.
+
+Como la ruta define los parámetros `id` y `nombre` , se crean dos variables con dichos nombres.
+
+Si visitamos la página [http://127.0.0.1:8080/producto/Margaritas/1](http://127.0.0.1:8080/producto/Margaritas/1) nos mostrará los dos parámetros:
 
 ![1546707747164](assets/1546707747164.png)
 
@@ -124,7 +130,7 @@ Y modificamos el partial para mostrar los datos reales del producto:
 
 Y ya lo tenemos todo.
 
-## Productos relacionados
+## 2.2 Productos relacionados
 
 ![1546709461502](assets/1546709461502.png)
 
@@ -169,7 +175,7 @@ Y por último, la vista `product.view.php`
 ?>
 ```
 
-## Thumbnail del producto
+## 2.3 Thumbnail del producto
 
 Una vez tenemos hecha la ficha del producto, ya podemos modificar el thumbnail para que los enlaces apunten a la misma.
 
@@ -199,9 +205,9 @@ La siguiente tabla, obtenida de https://perishablepress.com/stop-using-unsafe-ch
 
 ![1546713399179](assets/1546713399179.png)
 
+> **Nota**. Seguramente en el framework que uséis ya existirá un método para generar `slugs` que es como se denominan técnicamente estos generadores de url
 
-
-Para ello usamos la función `rawurlencode`. 
+Nosotros los haremos más sencillo usando la función `rawurlencode`. 
 
 Por ejemplo `Flor de pascua` se convertirá en `Flor%20de%20pascua`. Esto es importante para temas de SEO. También se pueden usar otras técnicas, como cambiar los espacios en blanco por `- `, eliminar los caracteres extraños, escribir todas las letras en minúsculas, quitar acentos, quitar stop words ...
 
@@ -211,7 +217,6 @@ Así que vamos a crear un método en `ProyectoWeb\app\utils\Utils` para que nos 
 public static function encodeURI(string $uri): string{
     return rawurlencode(strtolower(str_replace(' ', '-', $uri)));
 }
-
 ```
 
 Y ya podemos modificar `thumbnail-producto.part.php`
@@ -234,7 +239,7 @@ Y ya podemos modificar `thumbnail-producto.part.php`
 </div>
 ```
 
-------
+
 
 **Credits.**
 
