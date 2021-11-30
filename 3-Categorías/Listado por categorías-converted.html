@@ -3,37 +3,38 @@
 <head>
 <meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
 <title>Listado por categorías</title>
-<!-- Bootstrap CSS -->
-<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.0.13/css/all.css' integrity='sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp' crossorigin='anonymous'>
-<link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' />
+<script src="https://kit.fontawesome.com/df26033572.js"></script>
 <style type="text/css">html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; --monospace:"Lucida Console",Consolas,"Courier",monospace; }
 html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
-body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; tab-size: 4; }
 iframe { margin: auto; }
 a.url { word-break: break-all; }
 a:active, a:hover { outline: 0px; }
 .in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
-#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; overflow-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
 #write.first-line-indent p { text-indent: 2em; }
 #write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
 #write.first-line-indent li { margin-left: 2em; }
 .for-image #write { padding-left: 8px; padding-right: 8px; }
 body.typora-export { padding-left: 30px; padding-right: 30px; }
-.typora-export .footnote-line, .typora-export p { white-space: pre-wrap; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+.typora-export .task-list-item input { pointer-events: none; }
 @media screen and (max-width: 500px) {
   body.typora-export { padding-left: 0px; padding-right: 0px; }
+  #write { padding-left: 20px; padding-right: 20px; }
   .CodeMirror-sizer { margin-left: 0px !important; }
   .CodeMirror-gutters { display: none !important; }
 }
-#write li > figure:first-child { margin-top: -20px; }
+#write li > figure:last-child { margin-bottom: 0.5rem; }
 #write ol, #write ul { position: relative; }
-img { max-width: 100%; vertical-align: middle; }
-button, input, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
+img { max-width: 100%; vertical-align: middle; image-orientation: from-image; }
+button, input, select, textarea { color: inherit; font: inherit; }
 input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
 *, ::after, ::before { box-sizing: border-box; }
 #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
 #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
-h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { line-height: inherit; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 4; }
 p { orphans: 4; }
 h1 { font-size: 2rem; }
 h2 { font-size: 1.8rem; }
@@ -49,12 +50,13 @@ sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); 
 sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
 #write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
 figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
-figure > table { margin: 0px !important; }
+figure > table { margin: 0px; }
 tr { break-inside: avoid; break-after: auto; }
 thead { display: table-header-group; }
 table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
-table.md-table td { min-width: 80px; }
+table.md-table td { min-width: 32px; }
 .CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror-linenumber { user-select: none; }
 .CodeMirror { text-align: left; }
 .CodeMirror-placeholder { opacity: 0.3; }
 .CodeMirror pre { padding: 0px 4px; }
@@ -83,26 +85,27 @@ blockquote > :first-child, li > :first-child { margin-top: 0px; }
 .footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
 #write .footnote-line { white-space: pre-wrap; }
 @media print {
-  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
-  #write { margin-top: 0px; border-color: transparent !important; }
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; font-variant-ligatures: no-common-ligatures; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
   .typora-export * { -webkit-print-color-adjust: exact; }
   html.blink-to-pdf { font-size: 13px; }
-  .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write { break-after: avoid; }
   .typora-export #write::after { height: 0px; }
-  @page { margin: 20mm 0px; }
+  .is-mac table { break-inside: avoid; }
 }
 .footnote-line { margin-top: 0.714em; font-size: 0.7em; }
 a img, img a { cursor: pointer; }
 pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
-p > img:only-child { display: block; margin: auto; }
-p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+#write.first-line-indent p > .md-image:only-child:not(.md-img-error) img { left: -2em; position: relative; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
 #write .MathJax_Display { margin: 0.8em 0px 0px; }
 .md-math-block { width: 100%; }
 .md-math-block:not(:empty)::after { display: none; }
-[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus, [contenteditable="false"]:active, [contenteditable="false"]:focus { outline: 0px; box-shadow: none; }
 .md-task-list-item { position: relative; list-style-type: none; }
 .task-list-item.md-task-list-item { padding-left: 0px; }
-.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); border: none; }
 .math { font-size: 1rem; }
 .md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
 .md-toc-content { position: relative; margin-left: 0px; }
@@ -133,26 +136,35 @@ kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 
 code { text-align: left; vertical-align: initial; }
 a.md-print-anchor { white-space: pre !important; border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
 .md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
 .md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
 .MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
 .MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
 .MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
-.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
-.MathJax_SVG * { transition: none; }
-.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; overflow-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none 0s ease 0s; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; margin-top: 0px !important; }
 .os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
 .md-diagram-panel > svg { max-width: 100%; }
-[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; height: auto; }
 [lang="mermaid"] .node text { font-size: 1rem; }
 table tr th { border-bottom: 0px; }
 video { max-width: 100%; display: block; margin: 0px auto; }
 iframe { max-width: 100%; width: 100%; border: none; }
 .highlight td, .highlight tr { border: 0px; }
+svg[id^="mermaidChart"] { line-height: 1em; }
+mark { background: rgb(255, 255, 0); color: rgb(0, 0, 0); }
+.md-html-inline .md-plain, .md-html-inline strong, mark .md-inline-math, mark strong { color: inherit; }
+mark .md-meta { color: rgb(0, 0, 0); opacity: 0.3 !important; }
+@media print {
+  .typora-export h1, .typora-export h2, .typora-export h3, .typora-export h4, .typora-export h5, .typora-export h6 { break-inside: avoid; }
+  .typora-export h1::after, .typora-export h2::after, .typora-export h3::after, .typora-export h4::after, .typora-export h5::after, .typora-export h6::after { content: ""; display: block; height: 100px; margin-bottom: -100px; }
+}
 
 
 .CodeMirror { height: auto; }
 .CodeMirror.cm-s-inner { background: inherit; }
-.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-scroll { overflow: auto hidden; z-index: 3; }
 .CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
 .CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
 .CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
@@ -205,8 +217,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
 .CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
 .CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
 .CodeMirror-lines { cursor: text; }
-.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
-.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; overflow-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { overflow-wrap: break-word; white-space: pre-wrap; word-break: normal; }
 .CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
 .CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
 .CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
@@ -223,15 +235,234 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
 }
 
 
+html {overflow-x: initial !important;}:root { --bg-color:#ffffff; --text-color:#333333; --select-text-bg-color:#B5D6FC; --select-text-font-color:auto; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857; overflow-x: hidden; background: inherit; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space:inherit; overflow-x: visible; }
+.first-line-indent #write p .md-line { text-indent: 0px; }
+.first-line-indent #write li, .first-line-indent #write p, .first-line-indent #write p .md-line:first-child { text-indent: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+@media screen and (max-width: 500px) {
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write > blockquote:first-child, #write > div:first-child, #write > figure:first-child, #write > ol:first-child, #write > p:first-child, #write > pre:first-child, #write > ul:first-child { margin-top: 30px; }
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: inherit; line-height: inherit; font-family: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+h1, h2, h3, h4, h5, h6 { margin-top: 1rem; margin-bottom: 1rem; }
+p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
+.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0px; -webkit-margin-after: 0px; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.7); color: rgb(85, 85, 85); border-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 80px; }
+.CodeMirror-gutters { border-right: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+pre { white-space: pre-wrap; }
+pre.contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background: inherit; position: relative !important; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+.md-fences.mock-cm { white-space: pre-wrap; }
+.show-fences-line-number .md-fences { padding-left: 0px; }
+.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.CodeMirror-line { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background: 0px 0px; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; -webkit-tap-highlight-color: transparent; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+.footnote-line { white-space: pre-wrap; }
+@media print {
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid; break-before: avoid; }
+  #write { margin-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 1cm; padding-right: 1cm; padding-bottom: 0px; break-after: avoid; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background: rgb(204, 204, 204); display: block; overflow-x: hidden; }
+p > img:only-child { display: block; margin: auto; }
+.md-line > .md-image:only-child, p > .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
+p + .mathjax-block { margin-top: -1.143rem; }
+.mathjax-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) {
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, tt { font-family: var(--monospace); }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { border-width: initial !important; border-style: none !important; border-color: initial !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; background: 0px 0px !important; text-decoration: initial !important; text-shadow: initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="flow"] svg, [lang="mermaid"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background: inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-lines { padding: 4px 0px; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); background: inherit; white-space: nowrap; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background: inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { margin-bottom: -30px; padding-bottom: 30px; height: 100%; outline: 0px; position: relative; box-sizing: content-box; background: inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow-y: hidden; overflow-x: scroll; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; background: 0px 0px !important; border: none !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-radius: 0px; border-width: 0px; background: 0px 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right: 30px solid transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background: rgba(255, 255, 0, 0.4); }
+@media print {
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+.CodeMirror-lint-markers { width: 16px; }
+.CodeMirror-lint-tooltip { background-color: infobackground; border: 1px solid rgb(0, 0, 0); border-radius: 4px; color: infotext; font-family: var(--monospace); overflow: hidden; padding: 2px 5px; position: fixed; white-space: pre-wrap; z-index: 10000; max-width: 600px; opacity: 0; transition: opacity 0.4s; font-size: 0.8em; }
+.CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning { background-position: left bottom; background-repeat: repeat-x; }
+.CodeMirror-lint-mark-error { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg=="); }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning { background-position: center center; background-repeat: no-repeat; cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: middle; position: relative; }
+.CodeMirror-lint-message-error, .CodeMirror-lint-message-warning { padding-left: 18px; background-position: left top; background-repeat: no-repeat; }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII="); }
+.CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII="); }
+.CodeMirror-lint-marker-multiple { background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC"); background-repeat: no-repeat; background-position: right bottom; width: 100%; height: 100%; }
+
+
 :root { --side-bar-bg-color: #fafafa; --control-text-color: #777; }
-@font-face { font-family: "Open Sans"; font-style: normal; font-weight: normal; src: local("Open Sans Regular"), url("./github/400.woff") format("woff"); }
-@font-face { font-family: "Open Sans"; font-style: italic; font-weight: normal; src: local("Open Sans Italic"), url("./github/400i.woff") format("woff"); }
-@font-face { font-family: "Open Sans"; font-style: normal; font-weight: bold; src: local("Open Sans Bold"), url("./github/700.woff") format("woff"); }
-@font-face { font-family: "Open Sans"; font-style: italic; font-weight: bold; src: local("Open Sans Bold Italic"), url("./github/700i.woff") format("woff"); }
 html { font-size: 16px; }
 body { font-family: "Open Sans", "Clear Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; color: rgb(51, 51, 51); line-height: 1.6; }
-#write { max-width: 860px; margin: 0px auto; padding: 30px 30px 100px; }
+#write { max-width: 860px; margin: 0px auto; padding: 20px 30px 100px; }
 #write > ul:first-child, #write > ol:first-child { margin-top: 30px; }
+body > :first-child { margin-top: 0px !important; }
+body > :last-child { margin-bottom: 0px !important; }
 a { color: rgb(65, 131, 196); }
 h1, h2, h3, h4, h5, h6 { position: relative; margin-top: 1rem; margin-bottom: 1rem; font-weight: bold; line-height: 1.4; cursor: text; }
 h1:hover a.anchor, h2:hover a.anchor, h3:hover a.anchor, h4:hover a.anchor, h5:hover a.anchor, h6:hover a.anchor { text-decoration: none; }
@@ -250,6 +481,12 @@ h6 { font-size: 1em; color: rgb(119, 119, 119); }
 p, blockquote, ul, ol, dl, table { margin: 0.8em 0px; }
 li > ol, li > ul { margin: 0px; }
 hr { height: 2px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border: 0px none; overflow: hidden; box-sizing: content-box; }
+body > h2:first-child { margin-top: 0px; padding-top: 0px; }
+body > h1:first-child { margin-top: 0px; padding-top: 0px; }
+body > h1:first-child + h2 { margin-top: 0px; padding-top: 0px; }
+body > h3:first-child, body > h4:first-child, body > h5:first-child, body > h6:first-child { margin-top: 0px; padding-top: 0px; }
+a:first-child h1, a:first-child h2, a:first-child h3, a:first-child h4, a:first-child h5, a:first-child h6 { margin-top: 0px; padding-top: 0px; }
+h1 p, h2 p, h3 p, h4 p, h5 p, h6 p { margin-top: 0px; }
 li p.first { display: inline-block; }
 ul, ol { padding-left: 30px; }
 ul:first-child, ol:first-child { margin-top: 0px; }
@@ -263,12 +500,12 @@ table tr th { font-weight: bold; border-width: 1px 1px 0px; border-top-style: so
 table tr td { border: 1px solid rgb(223, 226, 229); text-align: left; margin: 0px; padding: 6px 13px; }
 table tr th:first-child, table tr td:first-child { margin-top: 0px; }
 table tr th:last-child, table tr td:last-child { margin-bottom: 0px; }
-.CodeMirror-lines { padding-left: 4px; }
-.code-tooltip { box-shadow: rgba(0, 28, 36, 0.3) 0px 1px 1px 0px; border-top: 1px solid rgb(238, 242, 242); }
-.md-fences, code, tt { border: 1px solid rgb(231, 234, 237); background-color: rgb(248, 248, 248); border-radius: 3px; padding: 2px 4px 0px; font-size: 0.9em; }
-code { background-color: rgb(243, 244, 244); padding: 0px 4px 2px; }
+.CodeMirror-gutters { border-right: 1px solid rgb(221, 221, 221); }
+.md-fences, code, tt { border: 1px solid rgb(223, 226, 229); background-color: rgb(248, 248, 248); border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 4px 0px; font-size: 0.9em; }
 .md-fences { margin-bottom: 15px; margin-top: 15px; padding: 8px 1em 6px; }
 .md-task-list-item > input { margin-left: -1.3em; }
+@media screen and (min-width: 914px) {
+}
 @media print {
   html { font-size: 13px; }
   table, pre { break-inside: avoid; }
@@ -277,25 +514,23 @@ code { background-color: rgb(243, 244, 244); padding: 0px 4px 2px; }
 .md-fences { background-color: rgb(248, 248, 248); }
 #write pre.md-meta-block { padding: 1rem; font-size: 85%; line-height: 1.45; background-color: rgb(247, 247, 247); border: 0px; border-radius: 3px; color: rgb(119, 119, 119); margin-top: 0px !important; }
 .mathjax-block > .code-tooltip { bottom: 0.375rem; }
-.md-mathjax-midline { background: rgb(250, 250, 250); }
 #write > h3.md-focus::before { left: -1.5625rem; top: 0.375rem; }
 #write > h4.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
 #write > h5.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
 #write > h6.md-focus::before { left: -1.5625rem; top: 0.285714rem; }
-.md-image > .md-meta { border-radius: 3px; padding: 2px 0px 0px 4px; font-size: 0.9em; color: inherit; }
-.md-tag { color: rgb(167, 167, 167); opacity: 1; }
+.md-image > .md-meta { border-radius: 3px; font-family: Consolas, "Liberation Mono", Courier, monospace; padding: 2px 0px 0px 4px; font-size: 0.9em; color: inherit; }
+.md-tag { color: inherit; }
 .md-toc { margin-top: 20px; padding-bottom: 20px; }
 .sidebar-tabs { border-bottom: none; }
 #typora-quick-open { border: 1px solid rgb(221, 221, 221); background-color: rgb(248, 248, 248); }
 #typora-quick-open-item { background-color: rgb(250, 250, 250); border-color: rgb(254, 254, 254) rgb(229, 229, 229) rgb(229, 229, 229) rgb(238, 238, 238); border-style: solid; border-width: 1px; }
+#md-notification::before { top: 10px; }
 .on-focus-mode blockquote { border-left-color: rgba(85, 85, 85, 0.12); }
 header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Arial, sans-serif; }
 .file-node-content:hover .file-node-icon, .file-node-content:hover .file-node-open-state { visibility: visible; }
 .mac-seamless-mode #typora-sidebar { background-color: var(--side-bar-bg-color); }
 .md-lang { color: rgb(180, 101, 77); }
 .html-for-mac .context-menu { --item-hover-bg-color: #E6F0FE; }
-#md-notification .btn { border: 0px; }
-.dropdown-menu .divider { border-color: rgb(229, 229, 229); }
 
 
 .cm-s-inner { background-color: rgb(38, 50, 56); color: rgb(233, 237, 237); }
@@ -331,9 +566,13 @@ header, .context-menu, .megamenu-content, footer { font-family: "Segoe UI", Aria
 .md-fences .code-tooltip { background-color: rgb(38, 50, 56); }
 .md-diagram-panel { font-family: Arial; font-size: 14px; line-height: 16px; }
 
+.typora-export p, .typora-export .footnote-line {white-space: normal;} 
+iframe{
+width:auto;
+}
 
 
- .typora-export p, .typora-export .footnote-line {white-space: normal;} 
+
 </style>
 <style type='text/css'>
 body.typora-export{
@@ -347,12 +586,15 @@ body.typora-export{
     margin-bottom: 80px;
     max-width: 960px;
     background-color: #fff;
-    box-shadow: 0 1px 0 rgba(255, 255, 255, 0),0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0),0 0 1Z0px rgba(0, 0, 0, 0.1);
     border: 1px solid #c2c2c2;
     
 }
 #write, #custom-footer{
     max-width: 100%;
+}
+#write{
+	padding: 80px 80px 100px
 }
 .typora-menu  {
     left:0;
@@ -487,26 +729,29 @@ body.typora-export{
 }
 .raw-code.show{
 	display:inherit;
-}</style>
+}
+.typora-export p, .typora-export li {white-space: inherit;} 
+
+</style>
  
 </head>
 <body class="typora-export">
 <div class="typora-container">
   <div class="typora-menu"><div class="md-toc" mdtype="toc">
-	<p class="md-toc-content"><span class='md-toc-item md-toc-h1'><a title ='Listado por categorías' class="md-toc-inner active" style="cursor: pointer;" href="">Listado por categorías</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-0' title='Ruta' class="md-toc-inner" style="cursor: pointer;" href="#header-n15">Ruta</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-1' title='ProductRepository' class="md-toc-inner" style="cursor: pointer;" href="#header-n99">ProductRepository</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-2' title='CategoryController' class="md-toc-inner" style="cursor: pointer;" href="#header-n20">CategoryController</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-3' title='categoria.view.php' class="md-toc-inner" style="cursor: pointer;" href="#header-n24">categoria.view.php</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-4' title='productos.part.php' class="md-toc-inner" style="cursor: pointer;" href="#header-n26">productos.part.php</a></span>
-<span class='md-toc-item md-toc-h1'><a id='anchor-heading-5' title='Paginador' class="md-toc-inner" style="cursor: pointer;" href="#header-n28">Paginador</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-6' title='Ruta' class="md-toc-inner" style="cursor: pointer;" href="#header-n53">Ruta</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-7' title='Paginador' class="md-toc-inner" style="cursor: pointer;" href="#header-n60">Paginador</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-8' title='Consulta SQL' class="md-toc-inner" style="cursor: pointer;" href="#header-n79">Consulta SQL</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-9' title='Partial para el paginador' class="md-toc-inner" style="cursor: pointer;" href="#header-n107">Partial para el paginador</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-10' title='Modificamos la vista ' class="md-toc-inner" style="cursor: pointer;" href="#header-n87">Modificamos la vista </a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-11' title='Pasos finales' class="md-toc-inner" style="cursor: pointer;" href="#header-n90">Pasos finales</a></span>
-<span class='md-toc-item md-toc-h2'><a id='anchor-heading-12' title='Mejora del paginador' class="md-toc-inner" style="cursor: pointer;" href="#header-n93">Mejora del paginador</a></span>
+	<p class="md-toc-content"><span class='md-toc-item md-toc-h1'><a id='anchor-heading-0' title='3.1 Ruta' class="md-toc-inner active" style="cursor: pointer;" href="#31-ruta">3.1 Ruta</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-1' title='ProductRepository' class="md-toc-inner" style="cursor: pointer;" href="#productrepository">ProductRepository</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-2' title='CategoryController' class="md-toc-inner" style="cursor: pointer;" href="#categorycontroller">CategoryController</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-3' title='categoria.view.php' class="md-toc-inner" style="cursor: pointer;" href="#categoriaviewphp">categoria.view.php</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-4' title='productos.part.php' class="md-toc-inner" style="cursor: pointer;" href="#productospartphp">productos.part.php</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-5' title='Crear el enlace a las categorías' class="md-toc-inner" style="cursor: pointer;" href="#crear-el-enlace-a-las-categorías">Crear el enlace a las categorías</a></span>
+<span class='md-toc-item md-toc-h1'><a id='anchor-heading-6' title='3.2 Paginador' class="md-toc-inner" style="cursor: pointer;" href="#32-paginador">3.2 Paginador</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-7' title='Ruta' class="md-toc-inner" style="cursor: pointer;" href="#ruta">Ruta</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-8' title='Paginador' class="md-toc-inner" style="cursor: pointer;" href="#paginador">Paginador</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-9' title='Consulta SQL' class="md-toc-inner" style="cursor: pointer;" href="#consulta-sql">Consulta SQL</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-10' title='Partial para el paginador' class="md-toc-inner" style="cursor: pointer;" href="#partial-para-el-paginador">Partial para el paginador</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-11' title='Modificamos la vista ' class="md-toc-inner" style="cursor: pointer;" href="#modificamos-la-vista">Modificamos la vista </a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-12' title='Pasos finales' class="md-toc-inner" style="cursor: pointer;" href="#pasos-finales">Pasos finales</a></span>
+<span class='md-toc-item md-toc-h2'><a id='anchor-heading-13' title='Mejora del paginador' class="md-toc-inner" style="cursor: pointer;" href="#mejora-del-paginador">Mejora del paginador</a></span>
 </p></div></div>
   <div class="typora-export  main-content">
   <div class='top'>
@@ -518,38 +763,39 @@ body.typora-export{
       <div id='custom-header'>
         <!--put here your custom header -->
        </div>
-       <div id="write" class="is-node">
-<p>Vamos a implementar el listado de productos por categoría.</p>
-<p>Como siempre, nos hace falta:</p>
+       <div id="write" class="">
+<p><span>Vamos a implementar el listado de productos por categoría.</span></p>
+<p><span>Como siempre, nos hace falta:</span></p>
 <ul>
-<li>definir una ruta</li>
-<li>crear un método en el repositorio</li>
-<li>crear el controlador</li>
-<li>crear la vista </li>
-<li>crear el partial.</li>
+<li><span>definir una ruta</span></li>
+<li><span>crear un método en el repositorio</span></li>
+<li><span>crear el controlador</span></li>
+<li><span>crear la vista </span></li>
+<li><span>crear el partial.</span></li>
 </ul>
-<h2 id="heading-0">
-<a name="header-n15" class="md-header-anchor "></a>Ruta</h2>
-<p><img src="assets/1547023385886.png" alt="1547023385886" referrerpolicy="no-referrer"></p>
+<h1 id="heading-0">
+<a name="31-ruta" class="md-header-anchor"></a><span>3.1 Ruta</span>
+</h1>
+<p><img src="assets/1547023385886.png" referrerpolicy="no-referrer" alt="1547023385886"></p>
 <h2 id="heading-1">
-<a name="header-n99" class="md-header-anchor "></a><code>ProductRepository</code>
+<a name="productrepository" class="md-header-anchor"></a><code>ProductRepository</code>
 </h2>
-<p><img src="assets/1547023404422.png" alt="1547023404422" referrerpolicy="no-referrer"></p>
+<p><img src="assets/1547023404422.png" referrerpolicy="no-referrer" alt="1547023404422"></p>
 <h2 id="heading-2">
-<a name="header-n20" class="md-header-anchor "></a><code>CategoryController</code>
+<a name="categorycontroller" class="md-header-anchor"></a><code>CategoryController</code>
 </h2>
-<p><img src="assets/1547023425991.png" alt="1547023425991" referrerpolicy="no-referrer"></p>
-<blockquote><p><strong>NOTA</strong>. Se llama <code>$categoriaActual</code> y no <code>$categoria</code>porque en el partial <code>category.part.php</code> ya usamos una variable con el mismo nombre.</p></blockquote>
+<p><img src="assets/1547023425991.png" referrerpolicy="no-referrer" alt="1547023425991"></p>
+<blockquote><p><strong><span>NOTA</span></strong><span>. Se llama </span><code>$categoriaActual</code><span> y no </span><code>$categoria</code><span> porque en el partial </span><code>category.part.php</code><span> ya usamos una variable con el mismo nombre.</span></p></blockquote>
 <h2 id="heading-3">
-<a name="header-n24" class="md-header-anchor "></a><code>categoria.view.php</code>
+<a name="categoriaviewphp" class="md-header-anchor"></a><code>categoria.view.php</code>
 </h2>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
 <div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;">
-<div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div>
+<div class="CodeMirror-measure"></div>
 <div class="CodeMirror-measure"></div>
 <div style="position: relative; z-index: 1;"></div>
 <div class="CodeMirror-code" role="presentation" style="">
@@ -564,15 +810,15 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">?&gt;</span></span></pre>
 </div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 115px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 115px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 122px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 122px;"></div>
 </div>
 </div></pre>
 <h2 id="heading-4">
-<a name="header-n26" class="md-header-anchor "></a><code>productos.part.php</code>
+<a name="productospartphp" class="md-header-anchor"></a><code>productos.part.php</code>
 </h2>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php+HTML"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php+html">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99744px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -595,39 +841,68 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">div</span><span class="cm-tag cm-bracket">&gt;</span></span></pre>
 </div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 184px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 184px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 188px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 188px;"></div>
 </div>
 </div></pre>
-<h1 id="heading-5">
-<a name="header-n28" class="md-header-anchor "></a>Paginador</h1>
-<p>Vamos a incluir un paginador para los productos:</p>
-<p><img src="assets/1546976638993.png" alt="1546976638993" referrerpolicy="no-referrer"></p>
+<h2 id="heading-5">
+<a name="crear-el-enlace-a-las-categor%C3%ADas" class="md-header-anchor"></a><span>Crear el enlace a las categorías</span>
+</h2>
+<p><span>Ahora nos hace falta modificar el enlace asociado en el menú de categorías. Para ello volvemos a hacer uso del enrutador en </span><code>category.part.php</code></p>
+<pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
+<div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+<div class="CodeMirror-scroll" tabindex="-1">
+<div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;">
+<div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div>
+<div class="CodeMirror-measure"></div>
+<div style="position: relative; z-index: 1;"></div>
+<div class="CodeMirror-code" role="presentation">
+<div class="CodeMirror-activeline" style="position: relative;">
+<div class="CodeMirror-activeline-background CodeMirror-linebackground"></div>
+<div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-variable">href</span><span class="cm-operator">=</span><span class="cm-string">"&lt;?=</span><span class="cm-variable-2">$router</span>-&gt;<span class="cm-variable">pathFor</span><span class="cm-string">('categoria', </span></span></pre>
+</div>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">            <span class="cm-string">['nombre' =&gt;  ProyectoWeb\app\utils\Utils::encodeURI(</span><span class="cm-variable-2">$categoria</span>-&gt;<span class="cm-variable">getNombre</span><span class="cm-string">()), 'id' =&gt; </span><span class="cm-variable-2">$categoria</span>-&gt;<span class="cm-variable">getId</span><span class="cm-string">()])?&gt;"</span></span></pre>
+</div>
+</div></div></div></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 76px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 76px;"></div>
+</div>
+</div></pre>
 <p> </p>
-<p>Para ello nos hace falta:</p>
+<h1 id="heading-6">
+<a name="32-paginador" class="md-header-anchor"></a><span>3.2 Paginador</span>
+</h1>
+<p><span>Vamos a incluir un paginador para los productos:</span></p>
+<p><img src="assets/1546976638993.png" referrerpolicy="no-referrer" alt="1546976638993"></p>
+<p> </p>
+<p><span>Para ello nos hace falta:</span></p>
 <ul>
-<li><p>modificar la ruta</p></li>
+<li><p><span>modificar la ruta</span></p></li>
 <li>
-<p>un componente paginador, que necesita</p>
+<p><span>un componente paginador, que necesita</span></p>
 <ul>
-<li>conocer la página actual</li>
-<li>conocer el número total de productos de la categoría</li>
-<li>conocer cuántos productos listamos en cada categoría</li>
-<li>conocer la ruta a cada página</li>
+<li><span>conocer la página actual</span></li>
+<li><span>conocer el número total de productos de la categoría</span></li>
+<li><span>conocer cuántos productos listamos en cada categoría</span></li>
+<li><span>conocer la ruta a cada página</span></li>
 </ul>
 </li>
-<li><p>modificar el repositorio</p></li>
-<li><p>un partial para el paginador</p></li>
-<li><p>modificar la vista</p></li>
+<li><p><span>modificar el repositorio</span></p></li>
+<li><p><span>un partial para el paginador</span></p></li>
+<li><p><span>modificar la vista</span></p></li>
 </ul>
-<h2 id="heading-6">
-<a name="header-n53" class="md-header-anchor "></a>Ruta</h2>
-<p>Modificamos la ruta para que ahora incluya la página como un parámetro. Va ser del estilo: <code>/categoria/flores/1/page/2</code></p>
-<p>Por tanto, </p>
-<p><img src="assets/1547023758677.png" alt="1547023758677" referrerpolicy="no-referrer"></p>
-<p>Fijaos en:</p>
+<h2 id="heading-7">
+<a name="ruta" class="md-header-anchor"></a><span>Ruta</span>
+</h2>
+<p><span>Modificamos la ruta para que ahora incluya la página como un parámetro. Va ser del estilo: </span><code>/categoria/flores/1/page/2</code></p>
+<p><span>Por tanto, </span></p>
+<p><img src="assets/1547023758677.png" referrerpolicy="no-referrer" alt="1547023758677"></p>
+<p><span>Fijaos en:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -641,17 +916,18 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">[<span class="cm-operator">/</span><span class="cm-variable">page</span><span class="cm-operator">/</span>{<span class="cm-variable">currentPage</span>:[<span class="cm-number">0</span><span class="cm-operator">-</span><span class="cm-number">9</span>]<span class="cm-operator">+</span>}]</span></pre>
 </div></div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 23px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 31px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 31px;"></div>
 </div>
 </div></pre>
-<p>Cuando una parámetro va entre corchetes significa que es opcional.</p>
-<h2 id="heading-7">
-<a name="header-n60" class="md-header-anchor "></a>Paginador</h2>
-<p>Vamos a usar el siguiente paginador: <a href="https://github.com/jasongrimes/php-paginator" target="_blank" class="url">https://github.com/jasongrimes/php-paginator</a></p>
-<p>Como bien indica, para instalarlo:</p>
+<p><span>Cuando una parámetro va entre corchetes significa que es opcional.</span></p>
+<h2 id="heading-8">
+<a name="paginador" class="md-header-anchor"></a><span>Paginador</span>
+</h2>
+<p><span>Vamos a usar el siguiente paginador: </span><a href="https://github.com/jasongrimes/php-paginator" target="_blank" class="url">https://github.com/jasongrimes/php-paginator</a></p>
+<p><span>Como bien indica, para instalarlo:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -665,13 +941,13 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">composer require "jasongrimes/paginator"</span></pre>
 </div></div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 23px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 31px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 31px;"></div>
 </div>
 </div></pre>
-<p> Este paginador se crea de la siguiente forma:</p>
+<p><span> Este paginador se crea de la siguiente forma:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -685,16 +961,16 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-2">$paginator</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">Paginator</span>(<span class="cm-variable-2">$totalItems</span>, <span class="cm-variable-2">$itemsPerPage</span>, <span class="cm-variable-2">$currentPage</span>, <span class="cm-variable-2">$urlPattern</span>);</span></pre>
 </div></div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 23px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 31px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 31px;"></div>
 </div>
 </div></pre>
-<p>Por lo que hemos de crear un método en <code>ProductRepository</code> para obtener el número total de productos, <code>$totalItems</code>, de una categoría.</p>
-<p><img src="assets/1547023782756.png" alt="1547023782756" referrerpolicy="no-referrer"></p>
-<p>En este caso el método de devolución de resultados ya no es <code>\PDO::FETCH_CLASS</code> sino <code>\PDO::FETCH_ASSOC</code> porque no queremos que nos devuelva objetos sino un array asociativo.</p>
-<p><code>$itemsPerPage</code> vamos a definirlo en el archivo de configuración <code>config.php</code> y en <code>config-sample.php</code>. </p>
+<p><span>Por lo que hemos de crear un método en </span><code>ProductRepository</code><span> para obtener el número total de productos, </span><code>$totalItems</code><span>, de una categoría.</span></p>
+<p><img src="assets/1547023782756.png" referrerpolicy="no-referrer" alt="1547023782756"></p>
+<p><span>En este caso el método de devolución de resultados ya no es </span><code>\PDO::FETCH_CLASS</code><span> sino </span><code>\PDO::FETCH_ASSOC</code><span> porque no queremos que nos devuelva objetos sino un array asociativo.</span></p>
+<p><code>$itemsPerPage</code><span> vamos a definirlo en el archivo de configuración </span><code>config.php</code><span> y en </span><code>config-sample.php</code><span>. </span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="diff"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="diff">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -718,13 +994,13 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> ];</span></pre>
 </div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 207px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 207px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 212px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 212px;"></div>
 </div>
 </div></pre>
-<p> <code>$currentPage</code>lo obtenemos a partir del parámetro que nos inyecta el enrutador en <code>CategoryController::listado</code> :</p>
+<p><span> </span><code>$currentPage</code><span> lo obtenemos a partir del parámetro que nos inyecta el enrutador en </span><code>CategoryController::listado</code><span>:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -738,13 +1014,13 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-2">$currentPage</span> <span class="cm-operator">=</span> (<span class="cm-variable-2">$currentPage</span> <span class="cm-operator">??</span> <span class="cm-number">1</span>);</span></pre>
 </div></div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 23px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 31px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 31px;"></div>
 </div>
 </div></pre>
-<p>Por último, ya sólo nos queda generar <code>$urlPattern</code>. En el ejemplo la especifica de la siguiente manera:</p>
+<p><span>Por último, ya sólo nos queda generar </span><code>$urlPattern</code><span>. En el ejemplo la especifica de la siguiente manera:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -758,13 +1034,13 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-variable-2">$urlPattern</span> <span class="cm-operator">=</span> <span class="cm-string">'/foo/page/(:num)'</span>;</span></pre>
 </div></div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 23px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 31px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 31px;"></div>
 </div>
 </div></pre>
-<p>Porque el paginador reemplaza <code>(:num)</code>por el número de página real. En nuestro caso va a ser:</p>
+<p><span>Porque el paginador reemplaza </span><code>(:num)</code><span>por el número de página real. En nuestro caso va a ser (lo usaremos más adelante)</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -784,13 +1060,13 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>  <span class="cm-string">'/page/(:num)'</span>;</span></pre>
 </div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 138px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 138px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 143px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 143px;"></div>
 </div>
 </div></pre>
-<p>De esta forma, los enlaces a las páginas de la categoría flores serán de la siguiente forma:</p>
+<p><span>De esta forma, los enlaces a las páginas de la categoría flores serán de la siguiente forma:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -808,21 +1084,23 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">/categoria/flores/1/page/3</span></pre>
 </div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 69px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 69px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 76px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 76px;"></div>
 </div>
 </div></pre>
-<h2 id="heading-8">
-<a name="header-n79" class="md-header-anchor "></a>Consulta SQL</h2>
-<p>Se ha de modificar la consulta para que ahora nos vaya trayendo páginas en vez de todos los productos:</p>
-<p><img src="assets/1547024387029.png" alt="1547024387029" referrerpolicy="no-referrer"></p>
 <h2 id="heading-9">
-<a name="header-n107" class="md-header-anchor "></a>Partial para el paginador</h2>
-<p>Este es muy sencillo. De momento vamos a usar el que viene por defecto:</p>
-<p><img src="assets/1546975525385.png" alt="1546975525385" referrerpolicy="no-referrer"></p>
-<p>El partial lo llamamos <code>pager.part.php</code> </p>
+<a name="consulta-sql" class="md-header-anchor"></a><span>Consulta SQL</span>
+</h2>
+<p><span>Se ha de modificar la consulta para que ahora nos vaya trayendo páginas en vez de todos los productos:</span></p>
+<p><img src="assets/1547024387029.png" referrerpolicy="no-referrer" alt="1547024387029"></p>
+<h2 id="heading-10">
+<a name="partial-para-el-paginador" class="md-header-anchor"></a><span>Partial para el paginador</span>
+</h2>
+<p><span>Este es muy sencillo. De momento vamos a usar el que viene por defecto:</span></p>
+<p><img src="assets/1546975525385.png" referrerpolicy="no-referrer" alt="1546975525385"></p>
+<p><span>El partial lo llamamos </span><code>pager.part.php</code><span> </span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99707px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -836,15 +1114,16 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?=</span><span class="cm-variable-2">$paginator</span><span class="cm-operator">?&gt;</span></span></pre>
 </div></div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 23px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 23px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 31px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 31px;"></div>
 </div>
 </div></pre>
-<h2 id="heading-10">
-<a name="header-n87" class="md-header-anchor "></a>Modificamos la vista </h2>
-<p>Incluimos el partial en la vista <code>categoria.view.php</code>:</p>
+<h2 id="heading-11">
+<a name="modificamos-la-vista" class="md-header-anchor"></a><span>Modificamos la vista </span>
+</h2>
+<p><span>Incluimos el partial en la vista </span><code>categoria.view.php</code><span>:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99707px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -865,26 +1144,28 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">?&gt;</span></span></pre>
 </div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 138px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 138px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 143px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 143px;"></div>
 </div>
 </div></pre>
-<h2 id="heading-11">
-<a name="header-n90" class="md-header-anchor "></a>Pasos finales</h2>
-<p>Ya podemos acabar el controlador:</p>
-<p><img src="assets/1547024407330.png" alt="1547024407330" referrerpolicy="no-referrer"></p>
 <h2 id="heading-12">
-<a name="header-n93" class="md-header-anchor "></a>Mejora del paginador</h2>
-<p>Modificamos el partial para que el paginador sea de la siguiente forma:</p>
-<p><img src="assets/1546975749734.png" alt="1546975749734" referrerpolicy="no-referrer"></p>
-<p>Simplemente he usado uno de los ejemplos que ya vienen preinstalados, <code>pager.phtml</code>,  y lo he modificado un poco:</p>
+<a name="pasos-finales" class="md-header-anchor"></a><span>Pasos finales</span>
+</h2>
+<p><span>Ya podemos acabar el controlador:</span></p>
+<p><img src="assets/1547024407330.png" referrerpolicy="no-referrer" alt="1547024407330"></p>
+<h2 id="heading-13">
+<a name="mejora-del-paginador" class="md-header-anchor"></a><span>Mejora del paginador</span>
+</h2>
+<p><span>Modificamos el partial para que el paginador sea de la siguiente forma:</span></p>
+<p><img src="assets/1546975749734.png" referrerpolicy="no-referrer" alt="1546975749734"></p>
+<p><span>Simplemente he usado uno de los ejemplos que ya vienen preinstalados, </span><code>pager.phtml</code><span>,  y lo he modificado un poco. Así que </span><code>pager.part.php</code><span> queda como sigue:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
 <div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;">
-<div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div>
+<div class="CodeMirror-measure"><span><span>​</span>x</span></div>
 <div class="CodeMirror-measure"></div>
 <div style="position: relative; z-index: 1;"></div>
 <div class="CodeMirror-code" role="presentation" style="">
@@ -919,11 +1200,15 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;?</span><span class="cm-variable">php</span> <span class="cm-keyword">endif</span>; <span class="cm-operator">?&gt;</span></span></pre>
 </div>
 </div></div></div></div>
-<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 644px;"></div>
-<div class="CodeMirror-gutters" style="display: none; height: 644px;"></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 638px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 638px;"></div>
 </div>
 </div></pre>
-<p> </p>
+<hr>
+<p><strong><span>Credits.</span></strong></p>
+<p><span>Víctor Ponz </span><a href="mailto:victorponz@gmail.com" target="_blank" class="url">victorponz@gmail.com</a></p>
+<p><span>Este material está licenciado bajo una licencia </span><a href="https://creativecommons.org/licenses/by-nc-sa/3.0/"><span>Creative Commons, Attribution-NonCommercial-ShareAlike</span></a></p>
+<p><img src="https://licensebuttons.net/l/by-nc-sa/3.0/88x31.png" referrerpolicy="no-referrer"></p>
 </div>      <div id='custom-footer'>
         <!--put here your custom footer -->
       </div>
@@ -932,626 +1217,221 @@ body.typora-export{
 </div><!--typora-container-->
 
 <!-- jQuery first, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-1.8.3.min.js"></script>  
   <script type="text/javascript">
-   'use strict';
-// https://github.com/iamdustan/smoothscroll/edit/master/src/smoothscroll.js
-// polyfill
-function polyfill() {
-  // aliases
-  var w = window;
-  var d = document;
+   class TyporaToc {
+  constructor (maxHeadingLevel = 6) {
+    this.maxHeadingLevel = maxHeadingLevel;
+    this.previous = null;
+    this.topEl = document.querySelector(".top");
+    let headings = "";
+    for (let i = 1; i <= this.maxHeadingLevel; i++){
+      headings += `h${i},`;
+    }
+    headings = headings.substr(0, headings.length - 1);
+    this.allHeadings = document.querySelectorAll(headings);
+    this.allTocAnchors = document.querySelectorAll(".md-toc-content a");
+    this.currentTocAnchor = null;
+    this.typoraContainer = document.querySelector(".typora-container");
+    this.writeEl = document.querySelector("#write");
+    this.codeMirrors = document.querySelectorAll('.CodeMirror-code');
+    this.navNext = document.querySelector('#nav-next');
+    this.navPrevious = document.querySelector('#nav-previous');
+    this.typoraMenu = document.querySelector('.typora-menu');
+    this.lastScrollTop = 0;
+    this.lastActive = null;
 
-  // return if scroll behavior is supported and polyfill is not forced
-  if (
-    'scrollBehavior' in d.documentElement.style &&
-    w.__forceSmoothScrollPolyfill__ !== true
-  ) {
-    return;
+    this.initEvents();
   }
 
-  // globals
-  var Element = w.HTMLElement || w.Element;
-  var SCROLL_TIME = 468;
-
-  // object gathering original scroll methods
-  var original = {
-    scroll: w.scroll || w.scrollTo,
-    scrollBy: w.scrollBy,
-    elementScroll: Element.prototype.scroll || scrollElement,
-    scrollIntoView: Element.prototype.scrollIntoView
-  };
-
-  // define timing method
-  var now =
-    w.performance && w.performance.now
-      ? w.performance.now.bind(w.performance)
-      : Date.now;
-
-  /**
-   * indicates if a the current browser is made by Microsoft
-   * @method isMicrosoftBrowser
-   * @param {String} userAgent
-   * @returns {Boolean}
-   */
-  function isMicrosoftBrowser(userAgent) {
-    var userAgentPatterns = ['MSIE ', 'Trident/', 'Edge/'];
-
-    return new RegExp(userAgentPatterns.join('|')).test(userAgent);
-  }
-
-  /*
-   * IE has rounding bug rounding down clientHeight and clientWidth and
-   * rounding up scrollHeight and scrollWidth causing false positives
-   * on hasScrollableSpace
-   */
-  var ROUNDING_TOLERANCE = isMicrosoftBrowser(w.navigator.userAgent) ? 1 : 0;
-
-  /**
-   * changes scroll position inside an element
-   * @method scrollElement
-   * @param {Number} x
-   * @param {Number} y
-   * @returns {undefined}
-   */
-  function scrollElement(x, y) {
-    this.scrollLeft = x;
-    this.scrollTop = y;
-  }
-
-  /**
-   * returns result of applying ease math function to a number
-   * @method ease
-   * @param {Number} k
-   * @returns {Number}
-   */
-  function ease(k) {
-    return 0.5 * (1 - Math.cos(Math.PI * k));
-  }
-
-  /**
-   * indicates if a smooth behavior should be applied
-   * @method shouldBailOut
-   * @param {Number|Object} firstArg
-   * @returns {Boolean}
-   */
-  function shouldBailOut(firstArg) {
-    if (
-      firstArg === null ||
-      typeof firstArg !== 'object' ||
-      firstArg.behavior === undefined ||
-      firstArg.behavior === 'auto' ||
-      firstArg.behavior === 'instant'
-    ) {
-      // first argument is not an object/null
-      // or behavior is auto, instant or undefined
-      return true;
-    }
-
-    if (typeof firstArg === 'object' && firstArg.behavior === 'smooth') {
-      // first argument is an object and behavior is smooth
-      return false;
-    }
-
-    // throw error when behavior is not supported
-    throw new TypeError(
-      'behavior member of ScrollOptions ' +
-        firstArg.behavior +
-        ' is not a valid value for enumeration ScrollBehavior.'
-    );
-  }
-
-  /**
-   * indicates if an element has scrollable space in the provided axis
-   * @method hasScrollableSpace
-   * @param {Node} el
-   * @param {String} axis
-   * @returns {Boolean}
-   */
-  function hasScrollableSpace(el, axis) {
-    if (axis === 'Y') {
-      return el.clientHeight + ROUNDING_TOLERANCE < el.scrollHeight;
-    }
-
-    if (axis === 'X') {
-      return el.clientWidth + ROUNDING_TOLERANCE < el.scrollWidth;
-    }
-  }
-
-  /**
-   * indicates if an element has a scrollable overflow property in the axis
-   * @method canOverflow
-   * @param {Node} el
-   * @param {String} axis
-   * @returns {Boolean}
-   */
-  function canOverflow(el, axis) {
-    var overflowValue = w.getComputedStyle(el, null)['overflow' + axis];
-
-    return overflowValue === 'auto' || overflowValue === 'scroll';
-  }
-
-  /**
-   * indicates if an element can be scrolled in either axis
-   * @method isScrollable
-   * @param {Node} el
-   * @param {String} axis
-   * @returns {Boolean}
-   */
-  function isScrollable(el) {
-    var isScrollableY = hasScrollableSpace(el, 'Y') && canOverflow(el, 'Y');
-    var isScrollableX = hasScrollableSpace(el, 'X') && canOverflow(el, 'X');
-
-    return isScrollableY || isScrollableX;
-  }
-
-  /**
-   * finds scrollable parent of an element
-   * @method findScrollableParent
-   * @param {Node} el
-   * @returns {Node} el
-   */
-  function findScrollableParent(el) {
-    var isBody;
-
-    do {
-      el = el.parentNode;
-
-      isBody = el === d.body;
-    } while (isBody === false && isScrollable(el) === false);
-
-    isBody = null;
-
-    return el;
-  }
-
-  /**
-   * self invoked function that, given a context, steps through scrolling
-   * @method step
-   * @param {Object} context
-   * @returns {undefined}
-   */
-  function step(context) {
-    var time = now();
-    var value;
-    var currentX;
-    var currentY;
-    var elapsed = (time - context.startTime) / SCROLL_TIME;
-
-    // avoid elapsed times higher than one
-    elapsed = elapsed > 1 ? 1 : elapsed;
-
-    // apply easing to elapsed time
-    value = ease(elapsed);
-
-    currentX = context.startX + (context.x - context.startX) * value;
-    currentY = context.startY + (context.y - context.startY) * value;
-
-    context.method.call(context.scrollable, currentX, currentY);
-
-    // scroll more if we have not reached our destination
-    if (currentX !== context.x || currentY !== context.y) {
-      w.requestAnimationFrame(step.bind(w, context));
-    }
-  }
-
-  /**
-   * scrolls window or element with a smooth behavior
-   * @method smoothScroll
-   * @param {Object|Node} el
-   * @param {Number} x
-   * @param {Number} y
-   * @returns {undefined}
-   */
-  function smoothScroll(el, x, y) {
-    var scrollable;
-    var startX;
-    var startY;
-    var method;
-    var startTime = now();
-
-    // define scroll context
-    if (el === d.body) {
-      scrollable = w;
-      startX = w.scrollX || w.pageXOffset;
-      startY = w.scrollY || w.pageYOffset;
-      method = original.scroll;
-    } else {
-      scrollable = el;
-      startX = el.scrollLeft;
-      startY = el.scrollTop;
-      method = scrollElement;
-    }
-
-    // scroll looping over a frame
-    step({
-      scrollable: scrollable,
-      method: method,
-      startTime: startTime,
-      startX: startX,
-      startY: startY,
-      x: x,
-      y: y
-    });
-  }
-
-  // ORIGINAL METHODS OVERRIDES
-  // w.scroll and w.scrollTo
-  w.scroll = w.scrollTo = function() {
-    // avoid action when no arguments are passed
-    if (arguments[0] === undefined) {
-      return;
-    }
-
-    // avoid smooth behavior if not required
-    if (shouldBailOut(arguments[0]) === true) {
-      original.scroll.call(
-        w,
-        arguments[0].left !== undefined
-          ? arguments[0].left
-          : typeof arguments[0] !== 'object'
-            ? arguments[0]
-            : w.scrollX || w.pageXOffset,
-        // use top prop, second argument if present or fallback to scrollY
-        arguments[0].top !== undefined
-          ? arguments[0].top
-          : arguments[1] !== undefined
-            ? arguments[1]
-            : w.scrollY || w.pageYOffset
-      );
-
-      return;
-    }
-
-    // LET THE SMOOTHNESS BEGIN!
-    smoothScroll.call(
-      w,
-      d.body,
-      arguments[0].left !== undefined
-        ? ~~arguments[0].left
-        : w.scrollX || w.pageXOffset,
-      arguments[0].top !== undefined
-        ? ~~arguments[0].top
-        : w.scrollY || w.pageYOffset
-    );
-  };
-
-  // w.scrollBy
-  w.scrollBy = function() {
-    // avoid action when no arguments are passed
-    if (arguments[0] === undefined) {
-      return;
-    }
-
-    // avoid smooth behavior if not required
-    if (shouldBailOut(arguments[0])) {
-      original.scrollBy.call(
-        w,
-        arguments[0].left !== undefined
-          ? arguments[0].left
-          : typeof arguments[0] !== 'object' ? arguments[0] : 0,
-        arguments[0].top !== undefined
-          ? arguments[0].top
-          : arguments[1] !== undefined ? arguments[1] : 0
-      );
-
-      return;
-    }
-
-    // LET THE SMOOTHNESS BEGIN!
-    smoothScroll.call(
-      w,
-      d.body,
-      ~~arguments[0].left + (w.scrollX || w.pageXOffset),
-      ~~arguments[0].top + (w.scrollY || w.pageYOffset)
-    );
-  };
-
-  // Element.prototype.scroll and Element.prototype.scrollTo
-  Element.prototype.scroll = Element.prototype.scrollTo = function() {
-    // avoid action when no arguments are passed
-    if (arguments[0] === undefined) {
-      return;
-    }
-
-    // avoid smooth behavior if not required
-    if (shouldBailOut(arguments[0]) === true) {
-      // if one number is passed, throw error to match Firefox implementation
-      if (typeof arguments[0] === 'number' && arguments[1] === undefined) {
-        throw new SyntaxError('Value could not be converted');
+  initEvents (){
+    let oSelf = this;
+    document.querySelector(".top .toogle").addEventListener('click', e => {
+      e.preventDefault();
+      let el = e.target;
+      if (el.matches("i")){
+        el = el.parentNode;
       }
-
-      original.elementScroll.call(
-        this,
-        // use left prop, first number argument or fallback to scrollLeft
-        arguments[0].left !== undefined
-          ? ~~arguments[0].left
-          : typeof arguments[0] !== 'object' ? ~~arguments[0] : this.scrollLeft,
-        // use top prop, second argument or fallback to scrollTop
-        arguments[0].top !== undefined
-          ? ~~arguments[0].top
-          : arguments[1] !== undefined ? ~~arguments[1] : this.scrollTop
-      );
-
-      return;
-    }
-
-    var left = arguments[0].left;
-    var top = arguments[0].top;
-
-    // LET THE SMOOTHNESS BEGIN!
-    smoothScroll.call(
-      this,
-      this,
-      typeof left === 'undefined' ? this.scrollLeft : ~~left,
-      typeof top === 'undefined' ? this.scrollTop : ~~top
-    );
-  };
-
-  // Element.prototype.scrollBy
-  Element.prototype.scrollBy = function() {
-    // avoid action when no arguments are passed
-    if (arguments[0] === undefined) {
-      return;
-    }
-
-    // avoid smooth behavior if not required
-    if (shouldBailOut(arguments[0]) === true) {
-      original.elementScroll.call(
-        this,
-        arguments[0].left !== undefined
-          ? ~~arguments[0].left + this.scrollLeft
-          : ~~arguments[0] + this.scrollLeft,
-        arguments[0].top !== undefined
-          ? ~~arguments[0].top + this.scrollTop
-          : ~~arguments[1] + this.scrollTop
-      );
-
-      return;
-    }
-
-    this.scroll({
-      left: ~~arguments[0].left + this.scrollLeft,
-      top: ~~arguments[0].top + this.scrollTop,
-      behavior: arguments[0].behavior
-    });
-  };
-
-  // Element.prototype.scrollIntoView
-  Element.prototype.scrollIntoView = function() {
-    // avoid smooth behavior if not required
-    if (shouldBailOut(arguments[0]) === true) {
-      original.scrollIntoView.call(
-        this,
-        arguments[0] === undefined ? true : arguments[0]
-      );
-
-      return;
-    }
-
-    // LET THE SMOOTHNESS BEGIN!
-    var scrollableParent = findScrollableParent(this);
-    var parentRects = scrollableParent.getBoundingClientRect();
-    var clientRects = this.getBoundingClientRect();
-
-    if (scrollableParent !== d.body) {
-      // reveal element inside parent
-      smoothScroll.call(
-        this,
-        scrollableParent,
-        scrollableParent.scrollLeft + clientRects.left - parentRects.left,
-        scrollableParent.scrollTop + clientRects.top - parentRects.top
-      );
-
-      // reveal parent in viewport unless is fixed
-      if (w.getComputedStyle(scrollableParent).position !== 'fixed') {
-        w.scrollBy({
-          left: parentRects.left,
-          top: parentRects.top,
-          behavior: 'smooth'
-        });
-      }
-    } else {
-      // reveal element in viewport
-      w.scrollBy({
-        left: clientRects.left,
-        top: clientRects.top,
-        behavior: 'smooth'
-      });
-    }
-  };
-}
-
-if (typeof exports === 'object' && typeof module !== 'undefined') {
-  // commonjs
-  module.exports = { polyfill: polyfill };
-} else {
-  // global
-  polyfill();
-}
-  </script>
-
-<script type="text/javascript">
-let previous;
-let t = "";
-let allHeadings = $("h1, h2, h3, h4, h5, h6");
-for (idx = 0; idx < allHeadings.length; idx++) {
-    let o = allHeadings.get(idx);
-    let next;
-    
-    if (allHeadings.get(idx+1)){
-      next = $(allHeadings.get(idx+1)).find("a")
-    }
-    if (next){
-      $(o).attr("data-next", next.attr("name"));
-    }else{
-      $(o).attr("data-next", "");
-    }
-    if (previous){
-      $(o).attr("data-previous", previous.attr("name"));
-    }else{
-      $(o).attr("data-previous", "");
-    }
-    previous = $(o).find("a");
-   
-}
-$('.top .toogle').click(
-  e=>{
-    e.preventDefault();
-      let el = $(e.currentTarget);
-      if (el.hasClass('expanded')){
-        $('.typora-container').addClass('hide-menu');
+      if (el.classList.contains('expanded')){
+        oSelf.typoraContainer.classList.add('hide-menu');
       }else{
-        $('.typora-container').removeClass('hide-menu');
+        oSelf.typoraContainer.classList.remove('hide-menu');
       }
-      el.toggleClass('expanded');
-    }
-);
-$(".md-toc-content a").click(e =>{
-  e.preventDefault();
-  let el = $(e.currentTarget);
-  $(".md-toc-content a").removeClass("active");
-  el.addClass("active");
-  
-    let destination = document.querySelector("[name='" + e.currentTarget.href.split("#")[1] + "']");
-    destination.scrollIntoView({ behavior: 'smooth' })
-    //Hacerlo con una promesa
-    window.setTimeout(() =>location.hash = e.currentTarget.href.split("#")[1],500);
-  
-}); 
-$("#nav-previous, #nav-next").click(e =>{
-  
-
-  let el = $(e.currentTarget);
-  let name =  e.currentTarget.href.split("#")[1];
-  if (name !== "")
-    location.hash = name;;
-
-});
-
-function isAnyPartOfElementInViewport(el) {
-
-const rect = el.getBoundingClientRect();
-// DOMRect { x: 8, y: 8, width: 100, height: 100, top: 8, right: 108, bottom: 108, left: 8 }
-const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
-const windowWidth = (window.innerWidth || document.documentElement.clientWidth);
-
-// http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
-const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);
-const horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0);
-
-return (vertInView && horInView);
-}
-let lastScrollTop = 0;
-let lastActive;
-window.addEventListener('keydown', function(e) {
-  let name = null;
-  if (e.keyCode == 39){
-    location.hash = $('#nav-next').attr("href");
-    name =  $('#nav-next').attr("href").split("#")[1];
-  }else if(e.keyCode == 37){
-    location.hash = $('#nav-previous').attr("href");
-    name =  $('#nav-previous').attr("href").split("#")[1];
-  }else{
-    return;
-  }
-});
-let writeEl = document.querySelector("#write");
-
-window.onload = function(){
-  function getAnchor() {
-    var currentUrl = document.URL,
-	  urlParts   = currentUrl.split('#');
-		
-    return (urlParts.length > 1) ? urlParts[1] : null;
-  }
-  let anchor = getAnchor();
-  let curTocEl = $("[href=" + anchor + "]")
-  if (curTocEl)
-    curTocEl.addClass("active");
-
-}
-
-window.addEventListener('scroll', function(e) {
-  var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-   if (st > lastScrollTop){
-    $("h1, h2, h3, h4, h5, h6").each(
-    function()
-    {
-        if (isAnyPartOfElementInViewport(this)){
-          let el = $(this);
-          $('#nav-previous').attr("href", "#" + el.attr("data-previous"));
-          $('#nav-next').attr("href", "#" + el.attr("data-next"));
-          $('.typora-menu').find( "a").removeClass('active');
-          lastActive = $('.typora-menu').find( "#anchor-" + el.attr('id'));
-          lastActive.addClass('active');
-          if (!isAnyPartOfElementInViewport(lastActive[0])){
-            lastActive[0].scrollIntoView();
+      el.classList.toggle('expanded');
+    });
+    
+    this.allTocAnchors.forEach(function(elem) {
+      elem.addEventListener("click", e =>  {
+          e.preventDefault();
+          oSelf.allTocAnchors.forEach(function(anchor){
+            anchor.classList.remove('active');
+          })
+          elem.classList.add("active");
+          oSelf.currentTocAnchor = document.querySelector("[name='" + decodeURI(e.target.href.split("#")[1]) + "']");
+          if (!oSelf.currentTocAnchor){
+            //Chrome no decodeURI
+            oSelf.currentTocAnchor = document.querySelector("[name='" + (e.target.href.split("#")[1]) + "']");
           }
-          return false;
-        }
-    } 
-  );
-   } else {
-    let notFound = true; 
-    $("h1, h2, h3, h4, h5, h6").each(
-    function()
-    {
-        if (isAnyPartOfElementInViewport(this)){
-          let el = $(this);
-          $('#nav-previous').attr("href", "#" + el.attr("data-previous"));
-          $('#nav-next').attr("href", "#" + el.attr("data-next"));
-          notFound = false;
-          $('.typora-menu').find( "a").removeClass('active');
-          lastActive = $('.typora-menu').find( "#anchor-" + el.attr('id'));
-          lastActive.addClass('active');
-          if (!isAnyPartOfElementInViewport(lastActive[0])){
-            lastActive[0].scrollIntoView();
+          if (oSelf.currentTocAnchor){
+            oSelf.currentTocAnchor.scrollIntoView({ behavior: 'smooth' })
+            window.setTimeout(() =>location.hash = e.target.href.split("#")[1],500);
           }
-          return false;
-        }
-      
-    } 
-  );
-    if (notFound){
-      $('.typora-menu').find( "a").removeClass('active');
-      if (lastActive){
-        let lastId = lastActive.attr("id").split("-")[2] - 1;
-        let t = $('.typora-menu').find( "#anchor-heading-" + lastId);
-        if (t){
-          t.addClass('active');
-          if (!isAnyPartOfElementInViewport(t[0])){
-              t[0].scrollIntoView();
-              $('#nav-previous').attr("href", "#" + t.attr("data-previous"));
-              $('#nav-next').attr("href", "#" + t.attr("data-next"));
-            }
           
-        }
+      });
+    });
+
+    this.topEl.addEventListener('click', e => {
+      e.preventDefault();
+      
+      let el = e.target;
+      if (el.matches("i")){
+          el = el.parentNode;
       }
+      if ((el.getAttribute("id") === "nav-previous") || ((el.getAttribute("id") === "nav-next"))){
+          let name =  el.getAttribute('href').split("#")[1];
+          if (name !== "")
+            location.hash = name;
+      }
+    });
 
+    window.addEventListener('keydown', function(e) {
+      
+      if (e.keyCode == 39){
+      	e.preventDefault();
+        location.hash = oSelf.navNext.getAttribute("href");
+      }else if(e.keyCode == 37){
+      	e.preventDefault();
+        location.hash = oSelf.navPrevious.getAttribute("href");
+      }
+    });
+
+    window.onload = function(){
+
+      //Add next and previous to headings
+      for (let idx = 0; idx < oSelf.allHeadings.length; idx++) {
+        let currentHeading = oSelf.allHeadings.item(idx);
+        let next;
+        
+        if (oSelf.allHeadings.item(idx+1)){
+          next = oSelf.allHeadings.item(idx+1).getElementsByTagName("a").item(0);
+        }
+        if (next){
+          currentHeading.setAttribute("data-next", next.getAttribute("name"));
+        }else{
+          currentHeading.setAttribute("data-next", "");
+        }
+        if (oSelf.previous){
+          currentHeading.setAttribute("data-previous", oSelf.previous.getAttribute("name"));
+        }else{
+          currentHeading.setAttribute("data-previous", "");
+        }
+        oSelf.previous = currentHeading.getElementsByTagName("a").item(0);
+       
+      }
+    
+      //Get hash, if any, to same document
+      function getAnchor() {
+        var currentUrl = document.URL,
+        urlParts   = currentUrl.split('#');
+        
+        return (urlParts.length > 1) ? urlParts[1] : null;
+      }
+    
+      //Activate link to hash
+      let anchor = getAnchor();
+    
+      let curTocEl =  document.querySelector("[href='" + anchor + "']");
+      if (curTocEl)
+        curTocEl.classList.add("active");
+    
     }
-   }
-   lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-  
-});
 
-let codeMirrors = $('.CodeMirror-code');
-codeMirrors.each(function(){
-	let lines = $(this).find('pre > span');
-	let code = "";
-	lines.each(function(){
-		let line = $(this);
-		line.html(line.html().replace(/[\u0250-\ue007]/g, ''));
-		let spans =  line.find("span");
-		spans.each(function(){
-			let span = $(this);
-			span.text(span.text().replace(/[\u0250-\ue007]/g, ''));
-		});
-			
-	});
+    window.addEventListener('scroll', function(e) {
+      var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+        if (st > oSelf.lastScrollTop){
+          oSelf.allHeadings.forEach(function(heading) {
+            if (oSelf.isAnyPartOfElementInViewport(heading)){
+              oSelf.navPrevious.setAttribute("href", "#" + heading.getAttribute("data-previous"));
+              oSelf.navNext.setAttribute("href", "#" + heading.getAttribute("data-next"));
+              oSelf.typoraMenu.querySelectorAll("a").forEach(function(anchor){
+                anchor.classList.remove('active');
+              });
+              oSelf.lastActive = oSelf.typoraMenu.querySelector( "#anchor-" + heading.getAttribute('id'));
+              oSelf.lastActive.classList.add('active');
+              if (!oSelf.isAnyPartOfElementInViewport(oSelf.lastActive)){
+                oSelf.lastActive.scrollIntoView();
+              }
+            }
+          } 
+        );
+       } else {
+        let notFound = true; 
+        oSelf.allHeadings.forEach(function(heading) {
+            if (oSelf.isAnyPartOfElementInViewport(heading)){
+              oSelf.navPrevious.setAttribute("href", "#" + heading.getAttribute("data-previous"));
+              oSelf.navNext.setAttribute("href", "#" + heading.getAttribute("data-next"));
+              notFound = false;
+              oSelf.typoraMenu.querySelectorAll("a").forEach(function(anchor){
+                anchor.classList.remove('active');
+              });
+              oSelf.lastActive = oSelf.typoraMenu.querySelector( "#anchor-" + heading.getAttribute('id'));
+              oSelf.lastActive.classList.add('active');
+              if (!oSelf.isAnyPartOfElementInViewport(oSelf.lastActive)){
+                oSelf.lastActive.scrollIntoView();
+              }
+            }
+          } 
+        );
+        if (notFound){
+          oSelf.typoraMenu.querySelectorAll("a").forEach(function(anchor){
+            anchor.classList.remove('active');
+          });
+          if (oSelf.lastActive){
+            let lastId = oSelf.lastActive.getAttribute("id").split("-")[2] - 1;
+            let t = oSelf.typoraMenu.querySelector( "#anchor-heading-" + lastId);
+            if (t){
+              t.classList.add('active');
+              if (!oSelf.isAnyPartOfElementInViewport(t)){
+                t.scrollIntoView();
+                oSelf.navPrevious.setAttribute("href", "#" + t.getAttribute("data-previous"));
+                oSelf.navNext.setAttribute("href", "#" + t.getAttribute("data-next"));
+              }
+            }
+          }
+        }
+       }
+       oSelf.lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+    });
+    //In some browsers (Mozilla Firefox), there are some strange characters in codeMirror so if you cut and paste code
+    //it doesn't compile because of these characters
+    this.codeMirrors.forEach(function(elem) {
+      let lines = elem.querySelectorAll('pre > span');
+      lines.forEach(function(line){
+        line.innerHTML = (line.innerHTML.replace(/[\u0250-\ue007]/g, ''));
+        let spans =  line.querySelectorAll("span");
+        spans.forEach(function(span){
+          span.textContent = (span.textContent.replace(/[\u0250-\ue007]/g, ''));
+        });
+          
+      });
+    });
+
+  }
+
+  isAnyPartOfElementInViewport(el) {
+
+    const rect = el.getBoundingClientRect();
+    // DOMRect { x: 8, y: 8, width: 100, height: 100, top: 8, right: 108, bottom: 108, left: 8 }
+    const windowHeight = (window.innerHeight || document.documentElement.clientHeight);
+    const windowWidth = (window.innerWidth || document.documentElement.clientWidth);
+    
+    // http://stackoverflow.com/questions/325933/determine-whether-two-date-ranges-overlap
+    const vertInView = (rect.top <= windowHeight) && ((rect.top + rect.height) >= 0);
+    const horInView = (rect.left <= windowWidth) && ((rect.left + rect.width) >= 0);
+    
+    return (vertInView && horInView);
+  }
 }
-);
-
-</script>
+   let toc = new TyporaToc(6);
+  </script>
 </body>
 </html>

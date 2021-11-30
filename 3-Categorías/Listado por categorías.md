@@ -24,7 +24,7 @@ Como siempre, nos hace falta:
 
 ![1547023425991](assets/1547023425991.png)
 
-> **NOTA**. Se llama `$categoriaActual` y no `$categoria`porque en el partial `category.part.php` ya usamos una variable con el mismo nombre.
+> **NOTA**. Se llama `$categoriaActual` y no `$categoria` porque en el partial `category.part.php` ya usamos una variable con el mismo nombre.
 
 ## `categoria.view.php`
 
@@ -132,7 +132,7 @@ En este caso el método de devolución de resultados ya no es `\PDO::FETCH_CLASS
  ];
 ```
 
- `$currentPage`lo obtenemos a partir del parámetro que nos inyecta el enrutador en `CategoryController::listado` :
+ `$currentPage` lo obtenemos a partir del parámetro que nos inyecta el enrutador en `CategoryController::listado`:
 
 ```php
 $currentPage = ($currentPage ?? 1);
