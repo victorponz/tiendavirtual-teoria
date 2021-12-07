@@ -12,7 +12,7 @@ Para ello es necesario:
 * crear el partial del carrito
 * crear la vista
 
-## Class Cart
+# 4.1 Class Cart
 
 Primero creamos una clase para el carro de la compra que almacena un array con los id's de los productos comprados y la cantidad en la sesión.
 
@@ -38,6 +38,26 @@ $templateVariables = [
 ![1547123281259](assets/1547123281259.png)
 
 ## `cart.part.php`
+
+Como se ve en el código, la parte que se repetirá es:
+
+```html
+     <tr>
+        <th scope="row">1</th>
+        <td><a href="#">Flor de pascua</a><a href="#"></a></td>
+        <td>1</td>
+        <td>15,00 €</td>
+        <td>15,00 €</td>
+      </tr>
+```
+
+Y el resto es código fijo a excepción de total del carro:
+
+```html
+ <b>Total: 15,00 €</b>
+```
+
+Estas dos partes son las que más adelante generaremos con php.
 
 ```html
 <div class="row carro">
@@ -117,7 +137,7 @@ class CartController
 }
 ```
 
-# Añadir al carrito
+# 4.2 Añadir al carrito
 
 Para añadir al carrito, hemos de:
 
@@ -128,48 +148,52 @@ Para añadir al carrito, hemos de:
 
 ## Ruta
 
+Creamos una ruta que nos permita añadir un `id` de producto y su cantidad que la hacemos opcional ya que va entre corchetes.
+
 ![1547123265271](assets/1547123265271.png)
 
 ## `CartController`
 
-![1547406678966](assets/1547406678966.png)
+```php
+public function add($request, $response, $args) {
+    extract($args);
+    $quantity = ($quantity ?? 1);
+    $respitorio = new ProductRepository;
+    try {
+        $producto = $respitorio->findById($id);
+        $this->container->cart->addItem($id, $quantity);
+        
+    }catch(NotFoundException $nfe){
+        ;
+    }
+    return $response->withRedirect($this->container->router->pathFor('cart'), 303);
+}
+```
 
 Añadir al carrito es muy sencillo:
 
 1. Se añade el producto
-2. Se redirige a la página que muestra el producto
+2. Se redirige a la página que muestra el carrito (todavía no mostramos los datos reales).
 
 ## Retoques finales
 
 Una vez podemos añadir productos al carro, ya podemos finalizar el partial con datos reales. Como siempre, nos hace falta un método en el repositorio de productos que nos devuelva los productos que hay actualmente en el carro:
 
-![1547406660954](assets/1547406660954.png)
+![image-20211203114627766](assets/image-20211203114627766.png)
 
-Y ahora, modificamos el Controlador. Primero creamos un método que nos genere todas las líneas del pedido junto al total del mismo.
+Modificamos el método `render` para incorporar los productos:
 
-![1547123336015](assets/1547123336015.png)
+![image-20211207192114967](assets/image-20211207192114967.png)
 
-Y ahora lo usamos en `render`:
+Y ya podemos modificar el partial.
+
+Obtener la cantidad de cada producto es tan sencillo como
 
 ```php
-public function render($request, $response, $args) {
-    extract($args);
-    $title = "Carrito";
-    $withCategories = false;
-
-    $repositorio = new ProductRepository();
-    $lineas = array();
-    $total = 0;
-    if (!$this->container['cart']->isEmpty()) {
-        $items = $this->getItems($repositorio->getFromCart($this->container['cart']));
-        $lineas = $items['productos'];
-        $total = $items['total']; 
-    }
-    return $this->container->renderer->render($response, "cart.view.php", compact('title', 'lineas', 'total', 'withCategories'));
-}
+$cart->getCart()[$producto->getId()]
 ```
 
-Y ya podemos modificar el partial:
+De tal forma que el código final del partial sería el siguiente:
 
 ```php+HTML
 <div class="row carro">
@@ -193,13 +217,16 @@ Y ya podemos modificar el partial:
       </tr>
     <?php else : ?>
       <?php $i = 1;
-        foreach ($lineas as $producto) :?>
+        $total = 0;
+        foreach ($productos as $producto) :
+          $total += $cart->getCart()[$producto->getId()] * $producto->getPrecio();
+        ?>
       <tr>
         <th scope="row"><?=$i++;?></th>
-        <td><a href="<?=$router->pathFor('ficha', ['nombre' =>  ProyectoWeb\app\utils\Utils::encodeURI($producto['producto']->getNombre()), 'id' => $producto['producto']->getId()])?>"><?= $producto['producto']->getNombre()?></a></td>
-        <td><?=$producto['cantidad']?></td>
-        <td><?= number_format($producto['producto']->getPrecio(), 2, ',', ' ')?> €</td>
-        <td><?= number_format($producto['total'], 2, ',', ' ')?></td>
+        <td><a href="<?=$router->pathFor('ficha', ['nombre' =>  ProyectoWeb\app\utils\Utils::encodeURI($producto->getNombre()), 'id' => $producto->getId()])?>"><?= $producto->getNombre()?></a></td>
+        <td><?= number_format($producto->getPrecio(), 2, ',', ' ')?> €</td>
+        <td><?= $cart->getCart()[$producto->getId()] ?></td>
+        <td><?=  number_format($cart->getCart()[$producto->getId()] * $producto->getPrecio(), 2, ',', ' '); ?> €</td>
       </tr>
       <?php endforeach ?>
     </tbody>
@@ -251,7 +278,7 @@ Y modificar el menú de nuestra web, `menu.part.php`:
  </div>
 ```
 
-# Vaciar el carrito
+# 4.3 Vaciar el carrito
 
 Vaciar el carro es tan sencillo como llamar al método `empty` y rediceccionar a la ruta del carro. Primero creamos la ruta:
 
@@ -307,7 +334,7 @@ Ahora ya tenemos tanto la ruta para vaciar el carrito como el javascript para pe
 <a class="btn btn-danger" href="<?=$router->pathFor('cart-empty')?>" onclick="return confirmEmptyCart();">Vaciar Carrito</a>
 ```
 
-# Eliminar un producto
+# 4.4 Eliminar un producto
 
 Para eliminar un producto, creamos una nueva ruta:
 
@@ -380,7 +407,7 @@ Y modificamos la vista `cart.part.php`
 
 
 
-# Proceso de pago con PayPal
+# 4.5 Proceso de pago con PayPal
 
 `PayPal` dispone de un simulador de pagos llamado `sandbox`, en el que nos podemos crear una cuenta para realizar pagos ficticios. Este simulador dispone de las mismas funcionalidades que la versión `Life`.
 
@@ -388,7 +415,7 @@ Para crearse una cuenta en `PayPal` Sandbox hay que visitar [https://www.sandbox
 
 Yo ya he creado una cuenta con mis credenciales que podéis usar en vuestro carro de la compra. Pero si alguien está interesado en crear la suya, lo puede hacer en la página anterior.
 
-Al crear una cuenta en el `sandbox`, `PayPal` crea dos usuarios ficticios: uno para el vendedor \(**victor.ponz-facilitator at ieselcaminaas.org**\) y otro para el comprador \(**victor.ponz-buyer at ieselcaminas.org**\).
+Al crear una cuenta en el `sandbox`, `PayPal` crea dos usuarios ficticios: uno para el vendedor \(**victor.ponz-facilitator at ieselcaminas.org**\) y otro para el comprador \(**victor.ponz-buyer at ieselcaminas.org**\).
 
 ## Crear cuentas en Sandbox
 
@@ -697,7 +724,7 @@ En la página de checkout, el usuario debe estar registrado. Por tanto, en el co
 
 ![1547406966652](assets/1547406966652.png)
 
-# Modal para el carro
+# 4.6 Modal para el carro
 
 ![1547398014692](assets/1547398014692.png)
 
