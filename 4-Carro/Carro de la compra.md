@@ -280,7 +280,7 @@ Y modificar el menú de nuestra web, `menu.part.php`:
 
 # 4.3 Vaciar el carrito
 
-Vaciar el carro es tan sencillo como llamar al método `empty` y rediceccionar a la ruta del carro. Primero creamos la ruta:
+Vaciar el carro es tan sencillo como llamar al método `empty` y redireccionar a la ruta del carro. Primero creamos la ruta:
 
 ```php
 $app->get('/cart/empty', CartController::class . ':empty')->setName("cart-empty");
@@ -315,7 +315,7 @@ function confirmEmptyCart(){
 }
 ```
 
-Y modificamos el partial, `fin-doc.part.php`para incluir este script:
+Y modificamos el partial, `fin-doc.part.php` para incluir este script:
 
 ```diff
 //Formato diff
@@ -328,7 +328,13 @@ Y modificamos el partial, `fin-doc.part.php`para incluir este script:
  </html>
 ```
 
-Ahora ya tenemos tanto la ruta para vaciar el carrito como el javascript para pedir confirmación, por lo que modificamos el partial `cart.part.php` 
+Ahora ya tenemos tanto la ruta para vaciar el carrito como el javascript para pedir confirmación, por lo que modificamos el partial `cart.part.php`  añadiendo:
+
+```javascript
+onclick="return confirmEmptyCart();"
+```
+
+De tal manera que el código del botón quedaría como sigue:
 
 ```php+HTML
 <a class="btn btn-danger" href="<?=$router->pathFor('cart-empty')?>" onclick="return confirmEmptyCart();">Vaciar Carrito</a>
@@ -354,7 +360,7 @@ public function delete($request, $response, $args) {
 }
 ```
 
-Añadimos un método para pedir confirmación en `js/app.js`
+Siempre que se va a realizar una acción que no se pueda deshacer hemos de pedir confirmación al usuario. Por tanto añadimos un método para pedir confirmación en `js/app.js`
 
 ```javascript
 function confirmDeleteItem(){
