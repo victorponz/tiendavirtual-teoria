@@ -344,21 +344,11 @@ De tal manera que el código del botón quedaría como sigue:
 
 Para eliminar un producto, creamos una nueva ruta:
 
-```php
-$app->get('/cart/delete/{id:[0-9]+}', CartController::class . ':delete')->setName("cart-delete");
-```
+![image-20211209185748792](assets/image-20211209185748792.png)
 
 Y el controlador:
 
-```php
-public function delete($request, $response, $args) {
-    extract($args);
-    
-    $this->container['cart']->deleteItem($id);
-    return $response->withRedirect($this->container->router->pathFor('cart'), 303);
-    
-}
-```
+![image-20211209185536796](assets/image-20211209185536796.png)
 
 Siempre que se va a realizar una acción que no se pueda deshacer hemos de pedir confirmación al usuario. Por tanto añadimos un método para pedir confirmación en `js/app.js`
 
@@ -372,7 +362,7 @@ function confirmDeleteItem(){
 }
 ```
 
-Y modificamos la vista `cart.part.php`
+Y modificamos la vista `cart.part.php` para añadir el icono de [fontawesome](https://fontawesome.com/) `fa-close` para eliminar el ítem.
 
 ```diff
 //Formato diff
@@ -395,7 +385,7 @@ Y modificamos la vista `cart.part.php`
          <td><?=$producto['cantidad']?></td>
          <td><?= number_format($producto['producto']->getPrecio(), 2, ',', ' ')?> €</td>
          <td><?= number_format($producto['total'], 2, ',', ' ')?></td>
-+        <td><a href="<?=$router->pathFor('cart-delete', ['id' => $producto['producto']->getId()])?>" onclick="return confirmDeleteItem();"><span class='fa fa-close'></span></a></td>
++        <td><a href="<?=$router->pathFor('cart-delete', ['id' => $producto->getId()])?>" onclick="return confirmDeleteItem();"><span class='fa fa-close'></span></a></td>
        </tr>
        <?php endforeach ?>
      </tbody>
