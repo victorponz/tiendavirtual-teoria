@@ -431,7 +431,7 @@ Las aplicaciones se crean en la página [https://developer.paypal.com/developer/
 
 Para integrar PayPal con nuestra aplicación existen diversos métodos.  Nosotros usaremos **Client Side Express Checkout using REST** porque se realiza con `Javascript` y es el recomendado por `PayPal`.
 
-El código necesario para realizar el pago se encuentra en [https://developer.paypal.com/demo/checkout/\#/pattern/client](https://developer.paypal.com/demo/checkout/#/pattern/client)
+El código necesario para realizar el pago se encuentra en [https://developer.paypal.com/demo/checkout/\#/pattern/client](https://developer.paypal.com/demo/checkout/#/pattern/client). Lo adaptaremos más tarde en la vista `cart.part.php`
 
 ```html
 <!DOCTYPE html>
@@ -503,25 +503,23 @@ El código necesario para realizar el pago se encuentra en [https://developer.pa
 > ```DIFF
 > //Formato diff
 > @@ -2,6 +2,8 @@
->      extract($args);
->      $title = "Carrito";
->      $withCategories = false;
-> +    $header = "Carrito de la compra";
-> +    $checkout = false;
->  
->      $repositorio = new ProductRepository();
->      $lineas = array();
-> @@ -11,5 +13,5 @@
->          $lineas = $items['productos'];
->          $total = $items['total']; 
+>         public function render($request, $response, $args) {
+>             extract($args);
+>             $title = " Carrito ";
+> +        $header = "Carrito de la compra";
+> +        $checkout = false;
+>          $withCategories = false;
+>          //Obtener los productos del carro;
+>          $repositorio = new ProductRepository;
+>          $productos = $repositorio->getFromCart($this->container->cart);
+>          
+>          return $this->container->renderer->render($response, "cart.view.php", 
+> -            compact('title', 'withCategories', 'productos'));
+> +            compact('title', 'header', 'checkout', 'withCategories', 'productos'));
 >      }
-> -    return $this->container->renderer->render($response, "cart.view.php", compact('title', 'lineas', 'total', 'withCategories'));
-> +    return $this->container->renderer->render($response, "cart.view.php", compact('title', 'header', 'checkout', 'lineas', 'total', 'withCategories'));
->  }
 > 
 > ```
->
->
+> 
 
 ### Vista
 
@@ -540,19 +538,22 @@ Modificamos el partial `cart.part.php` para que muestre el botón de PayPal y no
    <table class="table">
      <thead>
        <tr>
-@@ -38,10 +38,62 @@
+@@ -41,8 +41,14 @@
          </td>
        </tr>
        <tr>
+-        <td colspan="3"><a class="btn btn-danger" href="#">Finalizar compra</a></td>
 +      <?php if(!$checkout) :?>
--         <td colspan="3"><a class="btn btn-danger" href="#">Finalizar compra</a></td>
-+         <td colspan="3"><a class="btn btn-danger" href="<?=$router->pathFor('cart-checkout')?>">Finalizar compra</a></td>
-         <td colspan="4"><a class="btn btn-danger" href="<?=$router->pathFor('cart-empty')?>" onclick="return confirmEmptyCart();">Vaciar Carrito</a></td>
++        <td colspan="3"><a class="btn btn-danger" href="<?=$router->pathFor('cart-checkout')?>">Finalizar compra</a></td>
+         <td colspan="3"><a class="btn btn-danger" href="<?=$router->pathFor('cart-empty')?>" onclick="return confirmEmptyCart();">Vaciar Carrito</a></td>
 +      <?php else : ?>
-+        <td colspan="7">
++        <td colspan="6">
 +          <div id="paypal-button-container"></div>
 +        </td>
 +      <?php endif ?>
+       </tr>
+     </tfoot>
+     <?php endif ?>
        </tr>
      </tfoot>
      <?php endif ?>
@@ -645,7 +646,7 @@ Hemos de cambiar el Client ID por el apropiado. Para la app que ya he creado es
 amount: { total: '0.01', currency: 'USD' }
 ```
 
-Por tanto, hay que cambiar el campo `total` por el total del carro, `$producto['total']` y en el campo `currency` hemos de poner `EUR`
+Por tanto, hay que cambiar el campo `total` por el total del carro, `$total` y en el campo `currency` hemos de poner `EUR`
 
 **Finalizar el proceso**  
 
@@ -674,9 +675,14 @@ onAuthorize: function(data, actions) {
 
 En esta página, debemos vaciar el carro y mostrar un mensaje de agradecimiento.
 
-![1547397462251](assets/1547397462251.png)Creamos un partial `thankyou.part.php `
+![1547397462251](assets/1547397462251.png)
+
+Su vista `thankyou.view.php`
 
 ```php
+<?php
+  include __DIR__ . "/partials/inicio-doc.part.php";
+?>
 <div class="row">
     <div class="jumbotron">
         <h1>Gracias</h1>
@@ -684,35 +690,13 @@ En esta página, debemos vaciar el carro y mostrar un mensaje de agradecimiento.
         <p><a class="btn btn-primary btn-lg" href="<?=$router->pathFor('home');?>" role="button">Continuar</a></p>
     </div>
 </div>
-```
-
-Y su vista `thankyou.view.php`
-
-```php
 <?php
-  include __DIR__ . "/partials/inicio-doc.part.php";
-  include __DIR__ . "/partials/thankyou.part.php";
   include __DIR__ . "/partials/fin-doc.part.php";
 ?>
 ```
 Y creamos el controlador:
 
 ![1547406924441](assets/1547406924441.png)
-
-
-
-
-> **IMPORTANTE** En un entorno real, deberíamos insertar un pedido en la base de datos y después vaciar el carrito. Pero esto, de momento, no lo hacemos porque no nos aporta conocimientos nuevos \(bueno, realmente hay que hacer todo el proceso con transacciones de base de datos, pero no lo vamos a ver\). Si alguien está interesado, debe crear dos tablas: pedidos y linea\_pedido. La primera tiene los datos del pedido \(sobre todo del cliente y de la forma de pago\) y la segunda tiene una línea por cada uno de los artículos comprados. En ambas tablas debéis copiar **TODOS** los datos tanto del cliente como del producto ya que estos pueden variar a lo largo del tiempo. Además debemos introducir los datos de trazabilidad que pone a nuestra disposición `PayPal` al finalizar la transacción -paymentToken, paymentID, payerID, etc -
->
-> También se debería enviar un correo con los datos del pedido.
-
-### Finalizar compra
-
-Por último, ya podemos modificar la url del botón **Finalizar Compra**.
-
-```php+HTML
-<a class="btn btn-danger" href="<?=$router->pathFor('cart-checkout')?>">Finalizar compra</a>
-```
 
 ### Usuario registrado
 
