@@ -109,7 +109,7 @@ Creamos la vista `product.view.php`
 
 Y modificamos el controlador:
 
-![1546857165921](assets/1546857165921.png)
+![image-20211213085857784](assets/image-20211213085857784.png)
 
 Y modificamos el partial para mostrar los datos reales del producto:
 
@@ -160,9 +160,25 @@ Partial `relacionados.part.php`
 </div>
 ```
 
-`ProductController`
+`ProductController`, donde añadimos los productos relacionados ( `$relacionados`)
 
-![1546857199326](assets/1546857199326.png)
+```php
+public function ficha($request, $response, $args) {
+    extract($args);
+    $repositoryCateg = new CategoryRepository();
+    $categorias = $repositoryCateg->findAll();
+    $repositorio = new ProductRepository();
+    try{
+        $producto =$repositorio->findById($id);
+    }catch(NotFoundException $nfe){
+        $response = new \Slim\Http\Response(404);
+        return $response->write("Producto no encontrado");
+    }
+    $title = $producto->getNombre();
+    $relacionados = $repositorio->getRelacionados($producto);
+    return $this->container->renderer->render($response, "product.view.php", compact('title', 'categorias', 'producto', 'relacionados'));
+}
+```
 
 Y por último, la vista `product.view.php`
 
