@@ -12,7 +12,7 @@ Para ello es necesario:
 * crear el partial del carrito
 * crear la vista
 
-# 4.1 Class Cart
+## 4.1 Class Cart
 
 Primero creamos una clase para el carro de la compra que almacena un array con los id's de los productos comprados y la cantidad en la sesión.
 
@@ -33,11 +33,11 @@ $templateVariables = [
 ];
 ```
 
-## Ruta
+### Ruta
 
 ![1547123281259](assets/1547123281259.png)
 
-## `cart.part.php`
+### `cart.part.php`
 
 Como se ve en el código, la parte que se repetirá es:
 
@@ -96,7 +96,7 @@ Estas dos partes son las que más adelante generaremos con php.
 </div>
 ```
 
-## `cart.view.php`
+### `cart.view.php`
 
 ```PHP
 <?php
@@ -106,7 +106,7 @@ Estas dos partes son las que más adelante generaremos con php.
 ?>
 ```
 
-## `CartController`
+### `CartController`
 
 ```php
 <?php
@@ -137,7 +137,7 @@ class CartController
 }
 ```
 
-# 4.2 Añadir al carrito
+## 4.2 Añadir al carrito
 
 Para añadir al carrito, hemos de:
 
@@ -146,13 +146,13 @@ Para añadir al carrito, hemos de:
 * crear un método en el repositorio que nos devuelva los productos del carrito
 * modificar el partial con los datos reales
 
-## Ruta
+### Ruta
 
 Creamos una ruta que nos permita añadir un `id` de producto y su cantidad que la hacemos opcional ya que va entre corchetes.
 
 ![1547123265271](assets/1547123265271.png)
 
-## `CartController`
+### `CartController`
 
 ```php
 public function add($request, $response, $args) {
@@ -175,7 +175,7 @@ Añadir al carrito es muy sencillo:
 1. Se añade el producto
 2. Se redirige a la página que muestra el carrito (todavía no mostramos los datos reales).
 
-## Retoques finales
+### Retoques finales
 
 Una vez podemos añadir productos al carro, ya podemos finalizar el partial con datos reales. Como siempre, nos hace falta un método en el repositorio de productos que nos devuelva los productos que hay actualmente en el carro:
 
@@ -278,7 +278,7 @@ Y modificar el menú de nuestra web, `menu.part.php`:
  </div>
 ```
 
-# 4.3 Vaciar el carrito
+## 4.3 Vaciar el carrito
 
 Vaciar el carro es tan sencillo como llamar al método `empty` y redireccionar a la ruta del carro. Primero creamos la ruta:
 
@@ -340,7 +340,7 @@ De tal manera que el código del botón quedaría como sigue:
 <a class="btn btn-danger" href="<?=$router->pathFor('cart-empty')?>" onclick="return confirmEmptyCart();">Vaciar Carrito</a>
 ```
 
-# 4.4 Eliminar un producto
+## 4.4 Eliminar un producto
 
 Para eliminar un producto, creamos una nueva ruta:
 
@@ -403,7 +403,7 @@ Y modificamos la vista `cart.part.php` para añadir el icono de [fontawesome](ht
 
 
 
-# 4.5 Proceso de pago con PayPal
+## 4.5 Proceso de pago con PayPal
 
 `PayPal` dispone de un simulador de pagos llamado `sandbox`, en el que nos podemos crear una cuenta para realizar pagos ficticios. Este simulador dispone de las mismas funcionalidades que la versión `Life`.
 
@@ -413,13 +413,13 @@ Yo ya he creado una cuenta con mis credenciales que podéis usar en vuestro carr
 
 Al crear una cuenta en el `sandbox`, `PayPal` crea dos usuarios ficticios: uno para el vendedor \(**victor.ponz-facilitator at ieselcaminas.org**\) y otro para el comprador \(**victor.ponz-buyer at ieselcaminas.org**\).
 
-## Crear cuentas en Sandbox
+### Crear cuentas en Sandbox
 
 Para crear estas cuentas hay que visitar la página [https://developer.paypal.com/developer/accounts](https://developer.paypal.com/developer/accounts)
 
 ![](assets/pp1.png)
 
-## Crear  una app
+### Crear  una app
 
 Para poder realizar llamadas a la API de pago hay que crear una `REST API app`. Esto nos generará una clave \(**Client ID**\) que utilizaremos en todas las llamadas a la misma.
 
@@ -427,7 +427,7 @@ Las aplicaciones se crean en la página [https://developer.paypal.com/developer/
 
 ![](assets/pp2.png)En mi caso ya está creada y estos son los datos de la misma.![](assets/pp3.png)
 
-## Proceso de pago con PHP
+### Proceso de pago con PHP
 
 Para integrar PayPal con nuestra aplicación existen diversos métodos.  Nosotros usaremos **Client Side Express Checkout using REST** porque se realiza con `Javascript` y es el recomendado por `PayPal`.
 
@@ -490,11 +490,11 @@ El código necesario para realizar el pago se encuentra en [https://developer.pa
 </body>
 ```
 
-### Ruta
+#### Ruta
 
 ![1547406842433](assets/1547406842433.png)
 
-### Controlador
+#### Controlador
 
 ![1547406829280](assets/1547406829280.png)
 
@@ -521,7 +521,7 @@ El código necesario para realizar el pago se encuentra en [https://developer.pa
 > ```
 > 
 
-### Vista
+#### Vista
 
 Modificamos el partial `cart.part.php` para que muestre el botón de PayPal y no muestre el resto de botones.
 
@@ -698,13 +698,13 @@ Y creamos el controlador:
 
 ![1547406924441](assets/1547406924441.png)
 
-### Usuario registrado
+#### Usuario registrado
 
 En la página de checkout, el usuario debe estar registrado. Por tanto, en el controlador lo comprobamos y redirigimos en caso contrario.
 
 ![1547406966652](assets/1547406966652.png)
 
-# 4.6 Modal para el carro
+## 4.6 Modal para el carro
 
 ![1547398014692](assets/1547398014692.png)
 
@@ -980,9 +980,9 @@ Y ya se muestran todos los datos del producto
 
 ![image-20211215113849481](assets/image-20211215113849481.png)
 
-# 4.7 Actualizar el carro
+## 4.7 Actualizar el carro
 
-## Ruta
+### Ruta
 
 Además, creamos una ruta para actualizar la cantidad de un producto en el carro, que sólo se va a hacer desde la ventana modal mediante `POST`.
 
@@ -990,7 +990,7 @@ Además, creamos una ruta para actualizar la cantidad de un producto en el carro
 $app->post('/cart/update/json/{id:[0-9]+}/[{quantity:[0-9]+}]', CartController::class . ':update')->setName("cart-update-json");
 ```
 
-## Controlador
+### Controlador
 
 Y su controlador. Es muy parecido a `addJSON`, pero sólo devuelve el total del carro
 
@@ -1021,7 +1021,7 @@ public function update($request, $response, $args) {
 
 ```
 
-## Javascript
+### Javascript
 
 Y ahora modificamos `app.js` para que al pulsar el botón de actualizar, llame a la nueva ruta:
 
