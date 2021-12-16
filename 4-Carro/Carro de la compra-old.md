@@ -838,219 +838,52 @@ Y ahora la mostramos mediante javascript sustituyendo la función que muestra el
 })();
 ```
 
-### Ruta JSON
+### Ruta para POST
 
-Ahora los datos los vamos a obtener de forma asíncrona mediante `GET` y devolvemos datos en formato `JSON`.
+Ahora los datos los vamos a enviar de forma asíncrona mediante POST y devolvemos datos en formato JSON.
 
-La **ruta** será del estilo `/cart/add/json/id`
+Por tanto, modificamos la ruta `cart-add`:
 
-Por tanto, añadimos la ruta `cart-add-json`:
+![1547407028854](assets/1547407028854.png)
 
-```php
-$app->get('/cart/add/json/{id:[0-9]+}[/{quantity:[0-9]+}]', CartController::class . ':addJSON')->setName("cart-add-json");
+Y el controlador:
+
+![1547407047144](assets/1547407047144.png)
+
+Además, creamos una ruta para actualizar la cantidad de un producto en el carro, que sólo se va a hacer desde la ventana modal mediante post.
+
+![1547407075007](assets/1547407075007.png)
+
+Y su controlador:
+
+![1547631652414](assets/1547631652414.png)
+
+Además, vamos a añadir un atributo en los enlaces a comprar que almacene la ruta a `update` de cada producto. Este atributo lo usaremos en javascript para saber cuál es la ruta exacta de cada producto.
+
+En `thumbnail-producto.part.php`:
+
+```php+HTML
+<a href='<?=$router->pathFor('cart-add', ['id' => $producto->getId()])?>' 
+   data-href-update='<?=$router->pathFor('cart-update', 
+                                         ['id' => $producto->getId()])?>'
+   class='btn btn-danger'>Comprar</a>
 ```
 
-La respuesta `json` debe ser el producto, la cantidad añadida, el total del carro, la ruta a las imágenes y la cantidad total de ítems del carro. 
+Y en `ficha.part.php`
 
-Por ejemplo `/cart/add/json/2` devolverá el siguiente `json`
-
-```json
-{
-   "producto":{
-      "id":"2",
-      "nombre":"Tulip\u00e1n",
-      "descripcion":"Tulipa es un g\u00e9nero de plantas perennes y bulbosas perteneciente a la familia Liliaceae, en el que se incluyen los populares tulipanes, nombre com\u00fan con el que se designa a todas las especies, h\u00edbridos y cultivares de este g\u00e9nero.",
-      "id_categoria":"1",
-      "precio":"50",
-      "foto":"cultivar tulipanes 02a-a.jpg",
-      "destacado":"1",
-      "carrusel":"caracteristicas-cuidados-del-tulipan-1280x720x80xX.jpg"
-   },
-   "itemCount":1,
-   "totalCarro":"129,00",
-   "rutaImagen":"\/images\/",
-   "totalItems":6
-}
+```php+HTML
+<a href="<?=$router->pathFor('cart-add', ['id' => $producto->getId()])?>" 
+   data-href-update='<?=$router->pathFor('cart-update', 
+                                         ['id' => $producto->getId()])?>' 
+   class="btn btn-danger">Comprar</a>  
 ```
 
-Que conseguimos mediante:
+### Javascript completo
 
-```php
-return json_encode(["producto" => $productoActual->toArray(),
-                    "itemCount" => $this->container->cart->getItemCount($id),
-                    "totalCarro" => $total,
-                    "rutaImage" => \ProyectoWeb\entity\Product::RUTA_IMAGENES,
-                    "totalItems" => $this->container->cart->howMany($id)]);
-```
+Una vez tenemos todas las partes, ya podemos finalizar el javascript. Básicamente lo que hace es obtener la url del producto en el que hemos clicado **Comprar** y hacer una petición por POST. Con los datos devueltos en formato JSON, modifica la plantilla del carrito. 
 
-Y el controlador quedará como sigue:
-
-```php
-public function addJSON($request, $response, $args) {
-    extract($args);
-    $quantity = 1; //Por add sólo añadimos 1 si no está ya en el carro
-    $repositorio = new ProductRepository;
-    try {
-        //Añadimos al carrito
-        $productoActual = $repositorio->findById($id);
-        if (!$this->container->cart->itemExists($id))
-            $this->container->cart->addItem($id, $quantity);
-    }catch(NotFoundException $nfe){
-        return json_encode([]);
-    }
-
-    //Obtenemos el total del carro
-    $productos = $repositorio->findAll();
-    $total = 0;
-    foreach ($productos as $producto){
-        $total += $this->container->cart->getItemCount($producto->getId()) * $producto->getPrecio();
-    }
-    
-    //Devolvemos los datos formateados como json
-    return json_encode(["producto" => $productoActual->toArray(),
-                        "itemCount" => $this->container->cart->getItemCount($id),
-                        "totalCarro" => number_format($total, 2, ",", "."),
-                        "rutaImagen" => \ProyectoWeb\entity\Product::RUTA_IMAGENES,
-                        "totalItems" => $this->container->cart->howMany($id)]);
-}
-```
-
-Ahora ya podemos acabar el javascript para poner los datos devueltos por `json` 
-
-```javascript
-//Immediately-Invoked Function Expression (IIFE)
-(function(){
-    //El elemento dom con la plantilla del carro
-    var infoCarro = $("#infoCarroProducto");
-    //El elemento dom de la máscara
-    var mask = $("#mask");
-    //El elemento del header que muestra la cantidad de productoss
-    var cuantosEl = $(".nav.navbar-nav.navbar-right .badge");
-    
-    //Elementos dom a actualizar en la ventana modal del carro
-    var cartElements = {
-        total: infoCarro.find("#data-container .total"), 
-        title: infoCarro.find("#data-container .title"), 
-        desc: infoCarro.find("#data-container .desc"),
-        img: infoCarro.find("#data-container img"),
-        cantidad: infoCarro.find("#data-container #cantidad"),
-        updateButton: infoCarro.find("#data-container .update")
-    };    
-    //selector css del botón comprar del producto
-    $( ".thumbnail .btn.btn-danger, #ficha-producto .btn.btn-danger" ).click(function(event) {
-        event.preventDefault();
-        mask.show();
-        //Obtener el elemento clicado
-        var el =  $(event.target);
-        //y de ahi obtener el atributo href
-        var href = el.prop('href');
-        //porque es donde se encuentra el id de producto
-        var parts = href.split("/");
-        //la url es del estilo http://127.0.0.1:8080/cart/add/2/. Es decir el id se encuentra en la posición 6
-        var id = parts[5];
-        //Realizamos una petición por ajax
-        var hrefJson = "/cart/add/json/" + id; 
-        var jqxhr = $.get( hrefJson, function(data) {
-            //Este timeout sólo lo hago porque de otra forma lo hace
-            //tan rápido que no se nota el efecto. De hecho lo podéis quitar
-            setTimeout(function(){
-                //Parsear los datos json que me ha devuelto ajax
-                var jData = JSON.parse(data);               
-                //Actualizar el contador de items del header
-                cuantosEl.html(jData.totalItems);
-                 //una vez tenemos los datos sólo nos queda modificar la ventana modal con los datos devueltos
-                cartElements.total.html(jData.totalCarro);
-                cartElements.title.html(jData.producto.nombre);
-                cartElements.desc.html(jData.producto.descripcion);
-                cartElements.img.attr("src", jData.rutaImagen + jData.producto.foto);
-                cartElements.cantidad.val(jData.itemCount);
-                mask.hide();
-                infoCarro.modal();
-            }, 500);
-          })
-          .fail(function() {
-            alert( "error" );
-            mask.hide();
-          });
-    });
-})();
-```
-
-Y ya se muestran todos los datos del producto
-
-![image-20211215113849481](assets/image-20211215113849481.png)
-
-# 4.7 Actualizar el carro
-
-## Ruta
-
-Además, creamos una ruta para actualizar la cantidad de un producto en el carro, que sólo se va a hacer desde la ventana modal mediante `POST`.
-
-```php
-$app->post('/cart/update/json/{id:[0-9]+}/[{quantity:[0-9]+}]', CartController::class . ':update')->setName("cart-update-json");
-```
-
-## Controlador
-
-Y su controlador. Es muy parecido a `addJSON`, pero sólo devuelve el total del carro
-
-```php
-public function update($request, $response, $args) {
-    extract($args);
-    $quantity ??= 1; // Por defecto es 1
-    $repositorio = new ProductRepository;
-    try {
-        //Añadimos al carrito
-        $productoActual = $repositorio->findById($id);
-        $this->container->cart->addItem($id, $quantity);
-    }catch(NotFoundException $nfe){
-        return json_encode([]);
-    }
-
-    //Obtenemos el total del carro
-    $productos = $repositorio->findAll();
-    $total = 0;
-    foreach ($productos as $producto){
-        $total += $this->container->cart->getItemCount($producto->getId()) * $producto->getPrecio();
-    }
-    
-    //Devolvemos los datos formateados como json
-    return json_encode(["totalCarro" => number_format($total, 2, ",", "."),
-                            ]);
-}
-
-```
-
-## Javascript
-
-Y ahora modificamos `app.js` para que al pulsar el botón de actualizar, llame a la nueva ruta:
-
-```diff
---- a/public/js/app.js
-+++ b/public/js/app.js
-@@ -62,6 +62,21 @@ function confirmDeleteItem(){
-                 cartElements.cantidad.val(jData.itemCount);
-                 mask.hide();
-                 infoCarro.modal();
-+
-+                //Poner un listener en el evento clic del botón Actualizar, eliminando previamente el anterior evento
-+                cartElements.updateButton.unbind();
-+                cartElements.updateButton.click(function(event){
-+                    event.preventDefault();
-+                    var hrefUpdate = "/cart/update/json/" + id; 
-+                    //Hacer un post a update con la cantidad introducida por el usuario
-+                    var hrefUpdateQuantity = hrefUpdate + "/" + cartElements.cantidad.val();
-+                    var actualizar = $.post( hrefUpdateQuantity, {}, function(data) {
-+                        jData = JSON.parse(data);
-+                        //Actualizar los datos
-+                        cartElements.total.html(jData.totalCarro);
-+                        cuantosEl.html(jData.cuantos);
-+                    });
-+                });
-             }, 500);
-           })
-           .fail(function() {
-```
+Para actualizar la cantidad, hace una petición POST a la ruta definida en el atributo `data-href-update`
+<script src="https://gist.github.com/victorponz/adcbbcb967083e2ea76c1f2ad7349941.js"></script>
 
 ------
 
