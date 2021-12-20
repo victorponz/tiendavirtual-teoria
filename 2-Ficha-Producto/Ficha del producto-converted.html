@@ -830,7 +830,7 @@ body.typora-export{
 <p><span>Ahora ya podemos empezar a crear las vistas y a juntarlo todo.</span></p>
 <p><span>Creamos el partial para la ficha </span><code>ficha.part.php</code><span>, a partir del siguiente HTML:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="html"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="html">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -902,9 +902,9 @@ body.typora-export{
 <div class="CodeMirror-gutters" style="display: none; height: 526px;"></div>
 </div>
 </div></pre>
-<p><span>Creamos la vista </span><code>product.view.php</code></p>
+<p><span>Creamos la vista </span><code>product.view.php</code><span> con el siguiente contenido:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99739px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -921,18 +921,18 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  <span class="cm-keyword">include</span> <span class="cm-atom">__DIR__</span> . <span class="cm-string">"/partials/inicio-doc.part.php"</span>;</span></pre>
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  <span class="cm-keyword">include</span> <span class="cm-atom">__DIR__</span> . <span class="cm-string">"/partials/ficha.part.php"</span>;</span></pre>
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  <span class="cm-keyword">include</span> <span class="cm-atom">__DIR__</span> . <span class="cm-string">"/partials/fin-doc.part.php"</span>;</span></pre>
-<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">?&gt;</span></span></pre>
+<div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">?&gt;</span></span></pre></div>
 </div>
 </div></div></div></div>
 <div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 122px;"></div>
 <div class="CodeMirror-gutters" style="display: none; height: 122px;"></div>
 </div>
 </div></pre>
-<p><span>Y modificamos el controlador:</span></p>
-<p><img src="assets/image-20211213085857784.png" referrerpolicy="no-referrer" alt="image-20211213085857784"></p>
+<p><span>Y modificamos el controlador para que muestre los datos del producto, obteniéndolos desde el repositorio de productos.</span></p>
+<p><img src="assets/image-20211220114248585.png" referrerpolicy="no-referrer" alt="image-20211220114248585"></p>
 <p><span>Y modificamos el partial para mostrar los datos reales del producto:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php+HTML"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php+html">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -976,11 +976,35 @@ body.typora-export{
 <li><span>modificar el controlador</span></li>
 <li><span>modificar la vista</span></li>
 </ul>
-<p><code>ProductRepository</code></p>
-<p><img src="assets/1546857181994.png" referrerpolicy="no-referrer" alt="1546857181994"></p>
-<p><span>Partial </span><code>relacionados.part.php</code></p>
+<p><code>ProductRepository</code><span>, donde seleccionamos 6 productos aleatoriamente que pertenezcan a la misma categoría: </span></p>
+<pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99741px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
+<div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
+<div class="CodeMirror-scroll" tabindex="-1">
+<div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;">
+<div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div>
+<div class="CodeMirror-measure"></div>
+<div style="position: relative; z-index: 1;"></div>
+<div class="CodeMirror-code" role="presentation" style="">
+<div class="CodeMirror-activeline" style="position: relative;">
+<div class="CodeMirror-activeline-background CodeMirror-linebackground"></div>
+<div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">function</span> <span class="cm-def">getRelacionados</span>(<span class="cm-variable">Product</span> <span class="cm-variable-2">$producto</span>)</span></pre>
+</div>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">{</span></pre>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable-2">$sql</span> <span class="cm-operator">=</span> <span class="cm-string">"SELECT * FROM productos WHERE id_categoria = "</span> . <span class="cm-variable-2">$producto</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getIdCategoria</span>() . <span class="cm-string">"</span> <span class="cm-string">AND id != "</span> . <span class="cm-variable-2">$producto</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getId</span>() . <span class="cm-string">"</span> <span class="cm-string">ORDER BY RAND() LIMIT 6"</span>;</span></pre>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable-2">$this</span><span class="cm-operator">-&gt;</span><span class="cm-variable">executeQuery</span>(<span class="cm-variable-2">$sql</span>);</span></pre>
+<div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div>
+</div>
+</div></div></div></div>
+<div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 143px;"></div>
+<div class="CodeMirror-gutters" style="display: none; height: 143px;"></div>
+</div>
+</div></pre>
+<p><span>Partial  </span><code>relacionados.part.php</code></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php+HTML"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php+html">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99707px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99741px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -1008,8 +1032,8 @@ body.typora-export{
 </div>
 </div></pre>
 <p><code>ProductController</code><span>, donde añadimos los productos relacionados ( </span><code>$relacionados</code><span>)</span></p>
-<pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded md-focus" lang="php" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap CodeMirror-focused" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 26.4974px; left: 168.021px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -1018,12 +1042,12 @@ body.typora-export{
 <div class="CodeMirror-measure"></div>
 <div style="position: relative; z-index: 1;"></div>
 <div class="CodeMirror-code" role="presentation" style="">
-<div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">function</span> <span class="cm-def">ficha</span>(<span class="cm-variable-2">$request</span>, <span class="cm-variable-2">$response</span>, <span class="cm-variable-2">$args</span>) {</span></pre></div>
 <div class="CodeMirror-activeline" style="position: relative;">
 <div class="CodeMirror-activeline-background CodeMirror-linebackground"></div>
 <div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div>
-<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-builtin">extract</span>(<span class="cm-variable-2">$args</span>);</span></pre>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-keyword">public</span> <span class="cm-keyword">function</span> <span class="cm-def">ficha</span>(<span class="cm-variable-2">$request</span>, <span class="cm-variable-2">$response</span>, <span class="cm-variable-2">$args</span>) {</span></pre>
 </div>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-builtin">extract</span>(<span class="cm-variable-2">$args</span>);</span></pre>
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable-2">$repositoryCateg</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">CategoryRepository</span>();</span></pre>
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable-2">$categorias</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$repositoryCateg</span><span class="cm-operator">-&gt;</span><span class="cm-variable">findAll</span>();</span></pre>
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable-2">$repositorio</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">ProductRepository</span>();</span></pre>
@@ -1032,11 +1056,11 @@ body.typora-export{
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    }<span class="cm-keyword">catch</span>(<span class="cm-variable">NotFoundException</span> <span class="cm-variable-2">$nfe</span>){</span></pre>
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-variable-2">$response</span> <span class="cm-operator">=</span> <span class="cm-keyword">new</span> <span class="cm-variable">\Slim\Http\Response</span>(<span class="cm-number">404</span>);</span></pre>
 <pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">        <span class="cm-keyword">return</span> <span class="cm-variable-2">$response</span><span class="cm-operator">-&gt;</span><span class="cm-variable">write</span>(<span class="cm-string">"Producto no encontrado"</span>);</span></pre>
-<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    }</span></pre>
-<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable-2">$title</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$producto</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getNombre</span>();</span></pre>
+<div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    }</span></pre></div>
+<div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable-2">$title</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$producto</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getNombre</span>();</span></pre></div>
 <div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-variable-2">$relacionados</span> <span class="cm-operator">=</span> <span class="cm-variable-2">$repositorio</span><span class="cm-operator">-&gt;</span><span class="cm-variable">getRelacionados</span>(<span class="cm-variable-2">$producto</span>);</span></pre></div>
 <div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">    <span class="cm-keyword">return</span> <span class="cm-variable-2">$this</span><span class="cm-operator">-&gt;</span><span class="cm-variable">container</span><span class="cm-operator">-&gt;</span><span class="cm-variable">renderer</span><span class="cm-operator">-&gt;</span><span class="cm-variable">render</span>(<span class="cm-variable-2">$response</span>, <span class="cm-string">"product.view.php"</span>, <span class="cm-builtin">compact</span>(<span class="cm-string">'title'</span>, <span class="cm-string">'categorias'</span>, <span class="cm-string">'producto'</span>, <span class="cm-string">'relacionados'</span>));</span></pre></div>
-<div class="" style="position: relative;"><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre></div>
+<pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">}</span></pre>
 </div>
 </div></div></div></div>
 <div style="position: absolute; height: 0px; width: 1px; border-bottom: 0px solid transparent; top: 368px;"></div>
@@ -1045,7 +1069,7 @@ body.typora-export{
 </div></pre>
 <p><span>Y por último, la vista </span><code>product.view.php</code></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99738px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -1076,7 +1100,7 @@ body.typora-export{
 <p><span>Una vez tenemos hecha la ficha del producto, ya podemos modificar el thumbnail para que los enlaces apunten a la misma.</span></p>
 <p><span>Para ello, modificamos el partial </span><code>thumbnail-producto.part.php</code><span> pero nos hace falta conocer cuál es la ruta a los productos, por lo que hemos de inyectar el router de slim en index.php </span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99744px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99738px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -1103,7 +1127,7 @@ body.typora-export{
 </div></pre>
 <p><span>Y ahora usarlo en el partial:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99744px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -1133,7 +1157,7 @@ body.typora-export{
 <p><span>Por ejemplo </span><code>Flor de pascua</code><span> se convertirá en </span><code>Flor%20de%20pascua</code><span>. Esto es importante para temas de SEO. También se pueden usar otras técnicas, como cambiar los espacios en blanco por </span><code>-</code><span>, eliminar los caracteres extraños, escribir todas las letras en minúsculas, quitar acentos, quitar stop words ...</span></p>
 <p><span>Así que vamos a crear un método en </span><code>ProyectoWeb\app\utils\Utils</code><span> para que nos genere URI's válidos:</span></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 4.16669px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">
@@ -1157,7 +1181,7 @@ body.typora-export{
 </div></pre>
 <p><span>Y ya podemos modificar </span><code>thumbnail-producto.part.php</code></p>
 <pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="php+HTML" style="break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="php+html">
-<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99756px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
+<div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 3.99731px; left: 3.99744px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div>
 <div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div>
 <div class="CodeMirror-gutter-filler" cm-not-content="true"></div>
 <div class="CodeMirror-scroll" tabindex="-1">

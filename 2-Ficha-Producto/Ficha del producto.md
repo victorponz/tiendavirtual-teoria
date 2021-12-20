@@ -97,7 +97,7 @@ Y del siguiente css que introducimos en `shop-homepage.css`
 }
 ```
 
-Creamos la vista `product.view.php`
+Creamos la vista `product.view.php` con el siguiente contenido:
 
 ```php
 <?php
@@ -107,9 +107,9 @@ Creamos la vista `product.view.php`
 ?>
 ```
 
-Y modificamos el controlador:
+Y modificamos el controlador para que muestre los datos del producto, obteniéndolos desde el repositorio de productos.
 
-![image-20211213085857784](assets/image-20211213085857784.png)
+![image-20211220114248585](assets/image-20211220114248585.png)
 
 Y modificamos el partial para mostrar los datos reales del producto:
 
@@ -143,11 +143,17 @@ Para realizar este apartado, nos hace falta:
 * modificar el controlador
 * modificar la vista
 
-`ProductRepository`
+`ProductRepository`, donde seleccionamos 6 productos aleatoriamente que pertenezcan a la misma categoría: 
 
-![1546857181994](assets/1546857181994.png)
+```php
+public function getRelacionados(Product $producto)
+{
+    $sql = "SELECT * FROM productos WHERE id_categoria = " . $producto->getIdCategoria() . " AND id != " . $producto->getId() . " ORDER BY RAND() LIMIT 6";
+    return $this->executeQuery($sql);
+}
+```
 
-Partial `relacionados.part.php`
+Partial  `relacionados.part.php`
 
 ```php+HTML
 <div class="row">
