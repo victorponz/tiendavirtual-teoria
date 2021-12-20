@@ -382,9 +382,8 @@ Y modificamos la vista `cart.part.php` para añadir el icono de [fontawesome](ht
          </td>
        </tr>
 @@ -26,6 +27,7 @@
-         <td><?=$producto['cantidad']?></td>
-         <td><?= number_format($producto['producto']->getPrecio(), 2, ',', ' ')?> €</td>
-         <td><?= number_format($producto['total'], 2, ',', ' ')?></td>
+        <td><?= $cart->getCart()[$producto->getId()] ?></td>
+        <td><?=  number_format($cart->getCart()[$producto->getId()] * $producto->getPrecio(), 2, ',', ' '); ?> €</td>
 +        <td><a href="<?=$router->pathFor('cart-delete', ['id' => $producto->getId()])?>" onclick="return confirmDeleteItem();"><span class='fa fa-close'></span></a></td>
        </tr>
        <?php endforeach ?>
@@ -496,7 +495,26 @@ El código necesario para realizar el pago se encuentra en [https://developer.pa
 
 #### Controlador
 
-![1547406829280](assets/1547406829280.png)
+```php
+public function checkout($request, $response, $args) {
+    if (!isset($_SESSION['username'])) {
+        return $response->withRedirect($this->container->router->pathFor('login') . 
+        "?returnToUrl=" . $this->container->router->pathFor('cart-checkout'), 303);
+
+    }
+    extract($args);
+    $title = " Finalizar compra ";
+    $header = "Pago con PayPal";
+    $withCategories = false;
+    $checkout = true;
+    //Obtener los productos del carro;
+    $repositorio = new ProductRepository;
+    $productos = $repositorio->getFromCart($this->container->cart);
+
+    return $this->container->renderer->render($response, "cart.view.php", 
+    compact('title', 'header', 'checkout', 'withCategories', 'productos'));
+}
+```
 
 > **Nota**. Hemos añadido dos nuevas variables a la vista: `$checkout` y `$header` , por lo que también se la añadimos en render():
 >
@@ -587,7 +605,7 @@ Modificamos el partial `cart.part.php` para que muestre el botón de PayPal y no
                     payment: {
                         transactions: [
                             {
-                                amount: { total: '<?=$producto['total']?>', currency: 'EUR' }
+                                amount: { total: '<?=$total?>', currency: 'EUR' }
                             }
                         ]
                     }
